@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "1.0.0",
   "dependencies": {
-    "@rushstack/eslint-config": "3.6.8",
+    "@rushstack/eslint-config": "4.4.0",
     "@rushstack/eslint-patch": "1.10.1",
     "@tanstack/eslint-plugin-query": "4.38.0",
     "eslint-plugin-cypress": "2.15.1",
