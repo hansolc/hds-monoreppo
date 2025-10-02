@@ -1,11 +1,11 @@
 import { type ButtonHTMLAttributes, type ReactNode } from 'react'
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  test: any
+  test: number
 }
 
-const Button = ({ children, ...props }: ButtonProps) => {
+const Button = ({ children, ...props }: IButtonProps) => {
   return <button {...props}>{children}123</button>
 }
 
