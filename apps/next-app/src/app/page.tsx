@@ -10,7 +10,6 @@ export default function Home() {
         <h1>Next.js App with Shared UI</h1>
         <p>이 버튼은 @hds/ui 패키지에서 가져온 공유 컴포넌트입니다.</p>
         <Button
-          test={123}
           onClick={() => alert('Next.js에서 실행된 Button 컴포넌트!')}
           style={{
             padding: '12px 24px',

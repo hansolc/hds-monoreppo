@@ -31,7 +31,6 @@ const App = () => {
         <h2>@hds/ui 공유 컴포넌트</h2>
         <p>아래 버튼은 packages/ui에서 가져온 공유 Button 컴포넌트입니다.</p>
         <Button
-          test={123}
           onClick={() => alert('React + Vite에서 실행된 Button 컴포넌트!')}
           style={{
             padding: '12px 24px',
