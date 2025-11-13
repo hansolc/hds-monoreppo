@@ -1,7 +1,27 @@
 {
-  "eslint.workingDirectories": [
-    {
-      "mode": "auto"
-    }
-  ]
+  // ESLint flat config 지원 활성화 (ESLint v9+)
+  "eslint.experimental.useFlatConfig": true,
+
+  // ESLint 활성화
+  "eslint.enable": true,
+
+  // ESLint로 검증할 언어
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+
+  // 저장 시 자동 수정
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // 작업 디렉토리 설정 (monorepo)
+  "eslint.workingDirectories": [{ "mode": "auto" }],
+
+  // TypeScript 설정
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

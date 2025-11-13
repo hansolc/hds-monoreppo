@@ -1,5 +1,28 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "compilerOptions": {
+    // Base config
+    "composite": false,
+    "declaration": true,
+    "declarationMap": true,
+
+    // 출력 설정
+    "outDir": "./dist",
+
+    // 모듈 해석
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    // JSX 설정
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tsup.config.ts",
+    "eslint.config.js"
+  ],
+  "exclude": ["dist", "build", "node_modules", "**/*.test.ts", "**/*.test.tsx"]
 }
