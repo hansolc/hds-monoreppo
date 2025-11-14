@@ -1,0 +1,49 @@
+{
+  "name": "storybook",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@repo/ui": "workspace:*",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "3",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-essentials": "8.6.14",
+    "@storybook/addon-onboarding": "8.6.14",
+    "@storybook/blocks": "8.6.14",
+    "@storybook/experimental-addon-test": "8.6.14",
+    "@storybook/react": "8.6.14",
+    "@storybook/react-vite": "8.6.14",
+    "@storybook/test": "8.6.14",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "@vanilla-extract/vite-plugin": "^5.1.1",
+    "@vitejs/plugin-react-swc": "^4.1.0",
+    "@vitest/browser": "^4.0.8",
+    "@vitest/coverage-v8": "^4.0.8",
+    "eslint": "^9.36.0",
+    "eslint-plugin-storybook": "^0.11.1",
+    "playwright": "^1.56.1",
+    "storybook": "8.6.14",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^4.0.8"
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:storybook/recommended"
+    ]
+  }
+}
