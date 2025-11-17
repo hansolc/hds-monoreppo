@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import clsx from "clsx";
-import { Sprinkles, sprinkles } from "../styles/sprinkles.css";
-import { elementResets } from "../styles/reset.css";
+import { Sprinkles, sprinkles } from "@/styles/sprinkles.css";
+import { elementResets } from "@/styles/reset.css";
 import { JSX } from "react";
 
 export interface Atoms extends Sprinkles {
@@ -11,7 +12,7 @@ export interface Atoms extends Sprinkles {
 const keys = Array.from(sprinkles.properties.keys());
 
 /**
-
+ * @description
  * The `pick` function is used to extract the Sprinkles props from the `props` object.
  * The `keys` variable contains an array of all the property keys defined in the `sprinkles` object.
  * The `omit` function is used to extract the remaining props that are not Sprinkles props.
@@ -19,9 +20,10 @@ const keys = Array.from(sprinkles.properties.keys());
  */
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
 export function pick<T extends Record<string, any>, K extends keyof T>(
   obj: T,
-  keys: readonly K[]
+  keys: readonly K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
 
@@ -37,7 +39,7 @@ export function pick<T extends Record<string, any>, K extends keyof T>(
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function omit<T extends Record<string, any>, K extends keyof T>(
   obj: T,
-  keys: readonly K[]
+  keys: readonly K[],
 ): Omit<T, K> {
   const result = { ...obj };
 
@@ -60,6 +62,6 @@ export function atoms(atoms: Atoms) {
   return clsx(
     sprinklesClassNames,
     className,
-    reset ? [elementResets[reset]] : null
+    reset ? [elementResets[reset]] : null,
   );
 }
