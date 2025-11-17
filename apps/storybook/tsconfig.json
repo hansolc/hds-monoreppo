@@ -5,7 +5,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "vite.config.ts",
-    ".storybook/preview.tsx"
+    ".storybook/preview.tsx",
+    "eslint.config.js"
   ],
   "exclude": ["dist", "build", "node_modules"]
 }
