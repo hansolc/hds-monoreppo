@@ -1,6 +1,7 @@
 import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
 import onlyWarn from "eslint-plugin-only-warn";
 
 /**
@@ -15,6 +16,7 @@ export default defineConfig([
   {
     plugins: {
       "only-warn": onlyWarn,
+      "no-relative-import-paths": noRelativeImportPaths,
     },
 
     languageOptions: {
@@ -41,6 +43,12 @@ export default defineConfig([
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
         },
+      ],
+
+      // 상대 경로 사용 금지
+      "no-relative-import-paths/no-relative-import-paths": [
+        "warn",
+        { allowSameFolder: true, rootDir: "src", prefix: "@" },
       ],
     },
   },
