@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import clsx from "clsx";
-import { Sprinkles, sprinkles } from "@/styles/sprinkles.css";
+import { sprinkles } from "@/styles/sprinkles.css";
 import { elementResets } from "@/styles/reset.css";
-import { JSX } from "react";
-
-export interface Atoms extends Sprinkles {
-  reset?: keyof JSX.IntrinsicElements;
-  className?: string;
-}
+import { Atoms } from "@/types/atoms";
 
 const keys = Array.from(sprinkles.properties.keys());
 

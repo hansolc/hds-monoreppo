@@ -56,6 +56,7 @@ const responsiveProperties = defineProperties({
 const colorProperties = defineProperties({
   properties: {
     backgroundColor: vars.color,
+    color: vars.color,
   },
   defaultCondition: "lightMode",
   conditions: {
@@ -63,8 +64,33 @@ const colorProperties = defineProperties({
     darkMode: { "@media": "(prefers-color-scheme: dark)" },
   },
 });
+
+export const unresponsiveProperties = defineProperties({
+  properties: {
+    position: ["absolute", "relative", "fixed", "sticky"],
+    flexShrink: [0, 1],
+    flexGrow: [0, 1],
+    flex: [1],
+    borderStyle: ["solid", "none"],
+    cursor: ["default", "pointer", "not-allowed"],
+    overflow: ["hidden", "auto"],
+    textAlign: ["left", "center", "right"],
+    zIndex: {
+      "0": 0,
+      "10": 10,
+      "50": 50,
+      "100": 100,
+      auto: "auto",
+    },
+  },
+});
+
 // 3. Sprinkles 함수 생성
-export const sprinkles = createSprinkles(responsiveProperties, colorProperties);
+export const sprinkles = createSprinkles(
+  responsiveProperties,
+  colorProperties,
+  unresponsiveProperties,
+);
 
 // 4. 타입 추출
 export type Sprinkles = Parameters<typeof sprinkles>[0];

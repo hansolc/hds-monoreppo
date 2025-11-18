@@ -4,7 +4,7 @@ import {
   type ReactNode,
   forwardRef,
 } from "react";
-import type { Atoms } from "@/utils/atoms";
+import type { Atoms } from "@/types/atoms";
 import type { PolymorphicComponentPropWithRef } from "@/types/polymorphic";
 import { atoms, extractAtoms } from "@/utils/atoms";
 

@@ -71,7 +71,7 @@ createGlobalTheme(":root", colorTokens, lightColors);
 createGlobalTheme(
   "@media (prefers-color-scheme: dark)",
   colorTokens,
-  darkColors
+  darkColors,
 );
 
 export const lightThemeClass = createTheme(colorTokens, lightColors);

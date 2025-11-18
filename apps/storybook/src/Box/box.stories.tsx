@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Box } from "@repo/ui/ui/box";
+import { Box } from "@repo/design-system";
 import { ElementTypes } from "./options";
 
 const meta: Meta<typeof Box> = {
@@ -25,9 +25,9 @@ export default meta;
 
 export type Story = StoryObj<typeof Box>;
 
-export const TextStory: Story = {
+export const Default: Story = {
   args: {
-    as: "p",
+    as: "div",
     children: "Content",
   },
   render: (args) => {

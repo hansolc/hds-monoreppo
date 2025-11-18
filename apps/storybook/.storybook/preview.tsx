@@ -1,14 +1,14 @@
 import type { Preview } from "@storybook/react";
 import { withThemeByClassName } from "@storybook/addon-themes";
-import { styles } from "@repo/ui";
-import "@repo/ui/styles";
+import { lightThemeClass, darkThemeClass } from "@repo/design-system/styles";
+import "@repo/design-system/theme.css";
 
 const preview: Preview = {
   decorators: [
     withThemeByClassName({
       themes: {
-        light: styles.lightThemeClass,
-        dark: styles.darkThemeClass,
+        light: lightThemeClass,
+        dark: darkThemeClass,
       },
       defaultTheme: "light",
     }),

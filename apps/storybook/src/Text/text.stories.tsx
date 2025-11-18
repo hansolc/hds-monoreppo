@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Text } from "@repo/ui/ui/text";
+import { Text } from "@repo/design-system";
 
 const meta: Meta<typeof Text> = {
   title: "FOUNDATION/Text",
