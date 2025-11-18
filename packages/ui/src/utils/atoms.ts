@@ -19,8 +19,6 @@ const keys = Array.from(sprinkles.properties.keys());
  * The function returns an array with two elements: the Sprinkles props and the remaining props.
  */
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-
 export function pick<T extends Record<string, any>, K extends keyof T>(
   obj: T,
   keys: readonly K[],
@@ -36,7 +34,6 @@ export function pick<T extends Record<string, any>, K extends keyof T>(
   return result;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function omit<T extends Record<string, any>, K extends keyof T>(
   obj: T,
   keys: readonly K[],
@@ -50,6 +47,8 @@ export function omit<T extends Record<string, any>, K extends keyof T>(
   return result as Omit<T, K>;
 }
 
+// sprinkles에 등록된 props을 pick하고 나머지를 omit
+// return [등록된 sprinkles 값, 나머지 값]
 export const extractAtoms = <P extends object>(props: P) => [
   pick(props, keys as any),
   omit(props, keys as any),

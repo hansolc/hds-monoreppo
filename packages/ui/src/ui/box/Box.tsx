@@ -17,12 +17,12 @@ export type BoxProps<C extends ElementType = "div"> =
   PolymorphicComponentPropWithRef<C, HTMLProperties & Atoms>;
 
 type BoxComponent = <C extends ElementType = "div">(
-  props: BoxProps<C>
+  props: BoxProps<C>,
 ) => ReactNode;
 
 export const Box: BoxComponent = forwardRef<HTMLElement, BoxProps<ElementType>>(
-  ({ as, className, ...other }, ref) => {
-    const [atomsProps, propsToForward] = extractAtoms(other);
+  ({ as, className, ...props }, ref) => {
+    const [atomsProps, propsToForward] = extractAtoms(props);
     const Component: ElementType = as || "div";
     const atomClassName = atoms({
       className,
@@ -33,5 +33,5 @@ export const Box: BoxComponent = forwardRef<HTMLElement, BoxProps<ElementType>>(
     return (
       <Component {...propsToForward} className={atomClassName} ref={ref} />
     );
-  }
+  },
 );
