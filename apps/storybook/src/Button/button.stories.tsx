@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "@repo/ui/ui/button";
 
 const meta: Meta<typeof Button> = {
+  title: "COMPONENTS/Button",
   component: Button,
   argTypes: {},
   parameters: {

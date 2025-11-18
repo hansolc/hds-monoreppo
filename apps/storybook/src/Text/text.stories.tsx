@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "@repo/ui/ui/text";
 
 const meta: Meta<typeof Text> = {
+  title: "FOUNDATION/Text",
   component: Text,
   argTypes: {},
   parameters: {

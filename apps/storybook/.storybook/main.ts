@@ -35,5 +35,8 @@ const config: StorybookConfig = {
       plugins: [...(config.plugins || []), vanillaExtractPlugin()],
     };
   },
+  docs: {
+    autodocs: true,
+  },
 };
 export default config;
