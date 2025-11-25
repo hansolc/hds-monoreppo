@@ -1,15 +1,15 @@
 export const fontSize = {
-  xxxs: "0.6875rem", // 11px
-  xxs: "0.75rem", // 12px
+  "3xs": "0.6875rem", // 11px
+  "2xs": "0.75rem", // 12px
   xs: "0.875rem", // 14px
   sm: "1rem", // 16px
   md: "1.375rem", // 22px
   lg: "1.5rem", // 24px
   xl: "1.75rem", // 28px
-  xxl: "2rem", // 32px
-  xxxl: "2.25rem", // 36px
-  xxxxl: "2.8125rem", // 45px
-  xxxxxl: "3.5625rem", // 57px
+  "2xl": "2rem", // 32px
+  "3xl": "2.25rem", // 36px
+  "4xl": "2.8125rem", // 45px
+  "5xl": "3.5625rem", // 57px
 } as const;
 
 export const lineHeight = {
@@ -18,11 +18,11 @@ export const lineHeight = {
   md: "1.5rem", // 24px
   lg: "1.75rem", // 28px
   xl: "2rem", // 32px
-  xxl: "2.25rem", // 36px
-  xxxl: "2.5rem", // 40px
-  xxxxl: "2.75rem", // 44px
-  xxxxxl: "3.25rem", // 52px
-  xxxxxxl: "4rem", // 64px
+  "2xl": "2.25rem", // 36px
+  "3xl": "2.5rem", // 40px
+  "4xl": "2.75rem", // 44px
+  "5xl": "3.25rem", // 52px
+  "6xl": "4rem", // 64px
 } as const;
 
 export const fontWeights = {

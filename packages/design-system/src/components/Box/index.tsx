@@ -13,7 +13,7 @@ type HTMLProperties = Omit<
   "className" | "color" | "height" | "width" | "size"
 >;
 
-export type BoxProps<C extends ElementType = "div"> =
+export type BoxProps<C extends ElementType = ElementType> =
   PolymorphicComponentPropWithRef<C, HTMLProperties & Atoms>;
 
 type BoxComponent = <C extends ElementType = "div">(

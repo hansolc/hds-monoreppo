@@ -3,12 +3,12 @@ import { vars } from "./theme.css";
 
 const responsiveProperties = defineProperties({
   conditions: {
-    sm: {},
-    md: { "@media": "screen and (min-width: 768px)" },
-    lg: { "@media": "screen and (min-width: 1024px)" },
+    mobile: {},
+    tablet: { "@media": "screen and (min-width: 768px)" },
+    desktop: { "@media": "screen and (min-width: 1024px)" },
   },
-  defaultCondition: "sm",
-  responsiveArray: ["sm", "md", "lg"],
+  defaultCondition: "mobile",
+  responsiveArray: ["mobile", "tablet", "desktop"],
   properties: {
     display: [
       "none",
