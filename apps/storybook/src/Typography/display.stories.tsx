@@ -12,6 +12,9 @@ const meta: Meta<typeof Typography.Display> = {
       control: "select",
       options: ["sm", "md", "lg"],
     },
+    emphasized: {
+      control: "boolean",
+    },
   },
   parameters: {
     layout: "centered",
@@ -26,10 +29,13 @@ export const Default: Story = {
   args: {
     children: "Display",
     size: "md",
+    emphasized: false,
   },
   render: (args) => {
     return (
-      <Typography.Display size={args.size}>{args.children}</Typography.Display>
+      <Typography.Display size={args.size} emphasized={args.emphasized}>
+        {args.children}
+      </Typography.Display>
     );
   },
 };
