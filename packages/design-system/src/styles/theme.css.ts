@@ -12,6 +12,10 @@ import {
 } from "@/tokens";
 import { createThemeContract } from "@vanilla-extract/css";
 
+// 폰트 로드
+import "./fonts/roboto.css";
+import "./fonts/pretendard.css";
+
 export const colorTokens = createThemeContract({
   primary: "",
   surfaceTint: "",
