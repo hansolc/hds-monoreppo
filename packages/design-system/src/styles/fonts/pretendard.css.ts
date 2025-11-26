@@ -1,23 +1,7 @@
-import { globalFontFace, globalStyle } from "@vanilla-extract/css";
+import { globalStyle } from "@vanilla-extract/css";
 
-// Pretendard 폰트 정의 (CDN 사용)
-globalFontFace("Pretendard", {
-  src: 'url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css")',
-  fontWeight: "400",
-  fontStyle: "normal",
-});
-
-globalFontFace("Pretendard", {
-  src: 'url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css")',
-  fontWeight: "500",
-  fontStyle: "normal",
-});
-
-globalFontFace("Pretendard", {
-  src: 'url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css")',
-  fontWeight: "700",
-  fontStyle: "normal",
-});
+// Pretendard 폰트는 HTML head에서 로드됩니다:
+// <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
 
 // Pretendard를 기본 폰트로 설정하는 클래스
 export const pretendardFont =

@@ -3,7 +3,7 @@ import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 
 export const typographyDisplay = recipe({
-  base: [],
+  base: [sprinkles({ fontWeight: "regular" })],
   variants: {
     size: {
       lg: [
@@ -49,6 +49,10 @@ export const typographyDisplay = recipe({
           },
         }),
       ],
+    },
+    emphasized: {
+      true: [sprinkles({ fontWeight: "bold" })],
+      false: [sprinkles({ fontWeight: "regular" })],
     },
   },
 });

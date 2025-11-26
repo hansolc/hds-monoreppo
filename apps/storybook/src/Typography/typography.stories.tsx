@@ -8,10 +8,6 @@ const meta: Meta<typeof Typography> = {
     children: {
       control: "text",
     },
-    weight: {
-      control: "select",
-      options: ["bold", "medium", "regular"],
-    },
   },
   parameters: {
     layout: "centered",
@@ -25,9 +21,8 @@ export type Story = StoryObj<typeof Typography>;
 export const Default: Story = {
   args: {
     children: "Typography",
-    weight: "regular",
   },
   render: (args) => {
-    return <Typography weight={args.weight}>{args.children}</Typography>;
+    return <Typography>{args.children}</Typography>;
   },
 };

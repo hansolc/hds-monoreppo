@@ -24,8 +24,7 @@ export const Display = forwardRef<HTMLHeadingElement, DisplayProps>(
       <Typography
         ref={ref}
         as={as}
-        className={clsx(typographyDisplay({ size }), className)}
-        weight={emphasized ? "bold" : "regular"}
+        className={clsx(typographyDisplay({ size, emphasized }), className)}
         {...props}
       >
         {children}
