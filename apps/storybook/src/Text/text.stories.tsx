@@ -1,24 +1,22 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Text, textVariantOptions } from "@repo/design-system";
-import { ElementTypes } from "../Box/options";
+import { Text, TEXT_SEMANTICS, TextStylesTypesKeys } from "@repo/design-system";
 
 const meta: Meta<typeof Text> = {
   title: "FOUNDATION/Text",
   component: Text,
   argTypes: {
-    as: {
-      control: "select",
-      options: ElementTypes,
-    },
     children: {
       control: "text",
       description: "The content of the text",
     },
-    variants: {
+    as: {
       control: "select",
-      options: textVariantOptions,
-      description: "Typography scale",
+      options: TEXT_SEMANTICS,
+    },
+    textStyles: {
+      control: "select",
+      options: TextStylesTypesKeys,
     },
   },
   parameters: {
@@ -34,7 +32,6 @@ export const TextStory: Story = {
   args: {
     children: "Text",
     as: "p",
-    variants: textVariantOptions[0],
   },
   render: (args) => {
     return <Text {...args}>{args.children}</Text>;
