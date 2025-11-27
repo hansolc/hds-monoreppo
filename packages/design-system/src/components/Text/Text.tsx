@@ -22,6 +22,7 @@ export interface TextProps
       | "textAlign"
       | "whiteSpace"
       | "textDecoration"
+      | "color"
     >,
     Omit<HTMLAttributes<HTMLSpanElement>, "color"> {
   as?: TextSemantic;

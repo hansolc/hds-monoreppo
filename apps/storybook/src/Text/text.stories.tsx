@@ -28,6 +28,11 @@ const meta: Meta<typeof Text> = {
       description:
         "font-size, font-weight, line-height, letter-spacing 정의. 설정시 다른 속성들은 적용되지 않아요",
     },
+    color: {
+      control: "select",
+      options: Object.keys(vars.color),
+      description: "color",
+    },
     fontSize: {
       control: "select",
       options: Object.keys(vars.typography.fontSize),
