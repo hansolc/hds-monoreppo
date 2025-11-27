@@ -21,7 +21,6 @@ export interface TextProps
       | "letterSpacing"
       | "textAlign"
       | "whiteSpace"
-      | "maxLines"
       | "textDecoration"
     >,
     Omit<HTMLAttributes<HTMLSpanElement>, "color"> {

@@ -41,96 +41,23 @@ export const letterSpacing = {
   extraWide: "0.03125rem", // 0.5px
 } as const;
 
-// 타이포그래피 스타일 조합 정의
-// export const typographyStyles = {
-//   displayLarge: {
-//     fontSize: fontSize.xxxxxl,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xxxxxxl,
-//     letterSpacing: letterSpacing.tight,
-//   },
-//   displayMedium: {
-//     fontSize: fontSize.xxxxl,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xxxxxl,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   displaySmall: {
-//     fontSize: fontSize.xxxl,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xxxxl,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   headlineLarge: {
-//     fontSize: fontSize.xxl,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xxxl,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   headlineMedium: {
-//     fontSize: fontSize.xl,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xxl,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   headlineSmall: {
-//     fontSize: fontSize.lg,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xl,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   titleLarge: {
-//     fontSize: fontSize.md,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.lg,
-//     letterSpacing: letterSpacing.none,
-//   },
-//   titleMedium: {
-//     fontSize: fontSize.sm,
-//     fontWeight: fontWeights.medium,
-//     lineHeight: lineHeight.md,
-//     letterSpacing: letterSpacing.wide,
-//   },
-//   titleSmall: {
-//     fontSize: fontSize.xs,
-//     fontWeight: fontWeights.medium,
-//     lineHeight: lineHeight.sm,
-//     letterSpacing: letterSpacing.normal,
-//   },
-//   bodyLarge: {
-//     fontSize: fontSize.sm,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.md,
-//     letterSpacing: letterSpacing.extraWide,
-//   },
-//   bodyMedium: {
-//     fontSize: fontSize.xs,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.sm,
-//     letterSpacing: letterSpacing.wider,
-//   },
-//   bodySmall: {
-//     fontSize: fontSize.xxs,
-//     fontWeight: fontWeights.regular,
-//     lineHeight: lineHeight.xs,
-//     letterSpacing: letterSpacing.widest,
-//   },
-//   labelLarge: {
-//     fontSize: fontSize.xs,
-//     fontWeight: fontWeights.medium,
-//     lineHeight: lineHeight.sm,
-//     letterSpacing: letterSpacing.normal,
-//   },
-//   labelMedium: {
-//     fontSize: fontSize.xxs,
-//     fontWeight: fontWeights.medium,
-//     lineHeight: lineHeight.xs,
-//     letterSpacing: letterSpacing.extraWide,
-//   },
-//   labelSmall: {
-//     fontSize: fontSize.xxxs,
-//     fontWeight: fontWeights.medium,
-//     lineHeight: lineHeight.xs,
-//     letterSpacing: letterSpacing.extraWide,
-//   },
-// } as const;
+export const textAlign = {
+  left: "left",
+  center: "center",
+  right: "right",
+} as const;
+
+export const whiteSpace = {
+  normal: "normal",
+  nowrap: "nowrap",
+  pre: "pre",
+  "pre-wrap": "pre-wrap",
+  "pre-line": "pre-line",
+} as const;
+
+export const textDecoration = {
+  none: "none",
+  underline: "underline",
+  "line-through": "line-through",
+  overline: "overline",
+} as const;
