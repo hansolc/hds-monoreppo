@@ -13,6 +13,11 @@
       "import": "./dist/components/index.js",
       "require": "./dist/components/index.cjs"
     },
+    "./components/*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js",
+      "require": "./dist/components/*/index.cjs"
+    },
     "./styles": {
       "types": "./dist/styles/index.d.ts",
       "import": "./dist/styles/index.js",

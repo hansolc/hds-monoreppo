@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Text, TEXT_SEMANTICS, TextStylesTypesKeys } from "@repo/design-system";
+import {
+  Text,
+  TEXT_SEMANTICS,
+  TextStylesTypesKeys,
+} from "@repo/design-system/components/Text";
 
 const meta: Meta<typeof Text> = {
   title: "FOUNDATION/Text",
