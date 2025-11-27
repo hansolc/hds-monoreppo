@@ -1,4 +1,3 @@
-export { Text } from "./Text";
-export type { TextProps } from "./Text";
-export { textVariantOptions } from "./Text.css";
-export type { TextVariants } from "./Text.css";
+export { Text, type TextProps } from "./Text";
+export { TextStylesTypesKeys } from "./Text.css";
+export { TEXT_SEMANTICS } from "./types";

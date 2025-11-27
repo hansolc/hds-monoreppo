@@ -17,7 +17,8 @@ const preview: Preview = {
 };
 
 const initTheme = () => {
-  // document.body.classList.add(defaultThemeClasses);
+  // Roboto 폰트를 기본으로 적용
+  document.body.classList.add("font-roboto");
 };
 
 initTheme();

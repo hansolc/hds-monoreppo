@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Typography } from "@repo/design-system";
 
-const meta: Meta<typeof Typography.Display> = {
-  title: "FOUNDATION/Typography/Display",
-  component: Typography.Display,
+const meta: Meta<typeof Typography.Headline> = {
+  title: "FOUNDATION/Typography/Headline",
+  component: Typography.Headline,
   argTypes: {
     children: {
       control: "text",
@@ -23,19 +23,19 @@ const meta: Meta<typeof Typography.Display> = {
 
 export default meta;
 
-export type Story = StoryObj<typeof Typography.Display>;
+export type Story = StoryObj<typeof Typography.Headline>;
 
 export const Default: Story = {
   args: {
-    children: "Display",
+    children: "Headline",
     size: "md",
     emphasized: false,
   },
   render: (args) => {
     return (
-      <Typography.Display size={args.size} emphasized={args.emphasized}>
+      <Typography.Headline size={args.size} emphasized={args.emphasized}>
         {args.children}
-      </Typography.Display>
+      </Typography.Headline>
     );
   },
 };

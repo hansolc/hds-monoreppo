@@ -1,15 +1,25 @@
 import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
+import { vars } from "@/styles/theme.css";
 
-const setFontProperties = (
-  fontSize: number,
-  lineHeight: number,
-  letterSpacing?: number,
-) => {
+const setFontProperties = ({
+  fontSize,
+  lineHeight,
+  letterSpacing,
+  fontWeight,
+}: {
+  fontSize: keyof typeof vars.typography.fontSize;
+  lineHeight: keyof typeof vars.typography.lineHeight;
+  letterSpacing?: keyof typeof vars.typography.letterSpacing;
+  fontWeight?: keyof typeof vars.typography.fontWeights;
+}) => {
   return {
-    fontSize: `calc(${fontSize} / var(--body-font-size, 16) * 1rem)`,
-    lineHeight: `calc(${lineHeight} / var(--body-font-size, 16) * 1rem)`,
+    fontSize: vars.typography.fontSize[fontSize],
+    lineHeight: vars.typography.lineHeight[lineHeight],
     ...(letterSpacing && {
-      letterSpacing: `calc(${letterSpacing} / var(--body-font-size, 16) * 1rem)`,
+      letterSpacing: vars.typography.letterSpacing[letterSpacing],
+    }),
+    ...(fontWeight && {
+      fontWeight: vars.typography.fontWeights[fontWeight],
     }),
   };
 };
@@ -17,57 +27,243 @@ const setFontProperties = (
 export const text = recipe({
   base: {},
   variants: {
-    variants: {
+    textStyles: {
       displayLarge: {
-        ...setFontProperties(57, 64, -0.25),
+        ...setFontProperties({
+          fontSize: "5xl",
+          lineHeight: "6xl",
+          fontWeight: "regular",
+          letterSpacing: "tight",
+        }),
+      },
+      displayLargeBold: {
+        ...setFontProperties({
+          fontSize: "5xl",
+          lineHeight: "6xl",
+          fontWeight: "medium",
+          letterSpacing: "tight",
+        }),
       },
       displayMedium: {
-        ...setFontProperties(45, 52),
+        ...setFontProperties({
+          fontSize: "4xl",
+          lineHeight: "5xl",
+          fontWeight: "regular",
+        }),
+      },
+      displayMediumBold: {
+        ...setFontProperties({
+          fontSize: "4xl",
+          lineHeight: "5xl",
+          fontWeight: "medium",
+        }),
       },
       displaySmall: {
-        ...setFontProperties(36, 44),
+        ...setFontProperties({
+          fontSize: "3xl",
+          lineHeight: "4xl",
+          fontWeight: "regular",
+        }),
+      },
+      displaySmallBold: {
+        ...setFontProperties({
+          fontSize: "3xl",
+          lineHeight: "4xl",
+          fontWeight: "medium",
+        }),
       },
       headlineLarge: {
-        ...setFontProperties(32, 40),
+        ...setFontProperties({
+          fontSize: "2xl",
+          lineHeight: "3xl",
+          fontWeight: "regular",
+        }),
+      },
+      headlineLargeBold: {
+        ...setFontProperties({
+          fontSize: "2xl",
+          lineHeight: "3xl",
+          fontWeight: "medium",
+        }),
       },
       headlineMedium: {
-        ...setFontProperties(28, 36),
+        ...setFontProperties({
+          fontSize: "xl",
+          lineHeight: "2xl",
+          fontWeight: "regular",
+        }),
+      },
+      headlineMediumBold: {
+        ...setFontProperties({
+          fontSize: "xl",
+          lineHeight: "2xl",
+          fontWeight: "medium",
+        }),
       },
       headlineSmall: {
-        ...setFontProperties(24, 32),
+        ...setFontProperties({
+          fontSize: "lg",
+          lineHeight: "xl",
+          fontWeight: "regular",
+        }),
+      },
+      headlineSmallBold: {
+        ...setFontProperties({
+          fontSize: "lg",
+          lineHeight: "xl",
+          fontWeight: "medium",
+        }),
       },
       titleLarge: {
-        ...setFontProperties(22, 28),
+        ...setFontProperties({
+          fontSize: "md",
+          lineHeight: "lg",
+          fontWeight: "regular",
+        }),
+      },
+      titleLargeBold: {
+        ...setFontProperties({
+          fontSize: "md",
+          lineHeight: "lg",
+          fontWeight: "medium",
+        }),
       },
       titleMedium: {
-        ...setFontProperties(16, 24, 0.15),
+        ...setFontProperties({
+          fontSize: "sm",
+          lineHeight: "md",
+          fontWeight: "medium",
+          letterSpacing: "wide",
+        }),
+      },
+      titleMediumBold: {
+        ...setFontProperties({
+          fontSize: "sm",
+          lineHeight: "md",
+          fontWeight: "bold",
+          letterSpacing: "wide",
+        }),
       },
       titleSmall: {
-        ...setFontProperties(14, 20, 0.1),
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "medium",
+          letterSpacing: "normal",
+        }),
+      },
+      titleSmallBold: {
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "bold",
+          letterSpacing: "normal",
+        }),
       },
       labelLarge: {
-        ...setFontProperties(14, 20, 0.1),
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "medium",
+          letterSpacing: "normal",
+        }),
+      },
+      labelLargeBold: {
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "bold",
+          letterSpacing: "normal",
+        }),
       },
       labelMedium: {
-        ...setFontProperties(12, 16, 0.5),
+        ...setFontProperties({
+          fontSize: "2xs",
+          lineHeight: "xs",
+          fontWeight: "medium",
+          letterSpacing: "extraWide",
+        }),
+      },
+      labelMediumBold: {
+        ...setFontProperties({
+          fontSize: "2xs",
+          lineHeight: "xs",
+          fontWeight: "bold",
+          letterSpacing: "extraWide",
+        }),
       },
       labelSmall: {
-        ...setFontProperties(11, 16, 0.5),
+        ...setFontProperties({
+          fontSize: "3xs",
+          lineHeight: "xs",
+          fontWeight: "medium",
+          letterSpacing: "extraWide",
+        }),
+      },
+      labelSmallBold: {
+        ...setFontProperties({
+          fontSize: "3xs",
+          lineHeight: "xs",
+          fontWeight: "bold",
+          letterSpacing: "extraWide",
+        }),
       },
       bodyLarge: {
-        ...setFontProperties(16, 24, 0.5),
+        ...setFontProperties({
+          fontSize: "sm",
+          lineHeight: "md",
+          fontWeight: "regular",
+          letterSpacing: "extraWide",
+        }),
+      },
+      bodyLargeBold: {
+        ...setFontProperties({
+          fontSize: "sm",
+          lineHeight: "md",
+          fontWeight: "medium",
+          letterSpacing: "extraWide",
+        }),
       },
       bodyMedium: {
-        ...setFontProperties(14, 20, 0.25),
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "regular",
+          letterSpacing: "wider",
+        }),
+      },
+      bodyMediumBold: {
+        ...setFontProperties({
+          fontSize: "xs",
+          lineHeight: "sm",
+          fontWeight: "medium",
+          letterSpacing: "wider",
+        }),
       },
       bodySmall: {
-        ...setFontProperties(12, 16, 0.5),
+        ...setFontProperties({
+          fontSize: "2xs",
+          lineHeight: "xs",
+          fontWeight: "regular",
+          letterSpacing: "widest",
+        }),
+      },
+      bodySmallBold: {
+        ...setFontProperties({
+          fontSize: "2xs",
+          lineHeight: "xs",
+          fontWeight: "medium",
+          letterSpacing: "widest",
+        }),
       },
     },
   },
 });
 
-export type TextVariants = NonNullable<RecipeVariants<typeof text>>;
-export const textVariantOptions = Object.keys(
-  text.classNames.variants.variants,
-) as Array<TextVariants["variants"]>;
+type TextVariants = NonNullable<RecipeVariants<typeof text>>;
+
+export const TextStylesTypesKeys = Object.keys(
+  text.classNames.variants.textStyles,
+) as TextVariants["textStyles"][];
+
+export type TextStylesTypes = (typeof TextStylesTypesKeys)[number];

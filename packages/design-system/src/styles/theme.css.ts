@@ -12,6 +12,11 @@ import {
 } from "@/tokens";
 import { createThemeContract } from "@vanilla-extract/css";
 
+// 폰트 로드
+import "./fonts/roboto.css";
+import "./fonts/pretendard.css";
+import { textAlign, textDecoration, whiteSpace } from "@/tokens/typography";
+
 export const colorTokens = createThemeContract({
   primary: "",
   surfaceTint: "",
@@ -85,6 +90,9 @@ export const vars = createGlobalTheme(":root", {
     lineHeight,
     fontWeights,
     letterSpacing,
+    textAlign,
+    whiteSpace,
+    textDecoration,
   },
   spacing,
   elevation,

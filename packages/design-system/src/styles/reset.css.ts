@@ -20,7 +20,7 @@ globalStyle("*, *::before, *::after", {
   minWidth: 0,
   boxSizing: "border-box",
   fontSize: "100%",
-  font: "inherit",
+  fontFamily: "inherit",
   verticalAlign: "baseline",
 });
 
