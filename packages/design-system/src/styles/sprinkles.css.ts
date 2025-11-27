@@ -42,6 +42,10 @@ const responsiveProperties = defineProperties({
     lineHeight: vars.typography.lineHeight,
     fontWeight: vars.typography.fontWeights,
     letterSpacing: vars.typography.letterSpacing,
+    textAlign: ["left", "center", "right"],
+    whiteSpace: ["normal", "nowrap", "pre", "pre-wrap", "pre-line"],
+    maxLines: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    textDecoration: ["none", "underline", "overline", "line-through"],
   },
   shorthands: {
     p: ["paddingTop", "paddingBottom", "paddingLeft", "paddingRight"],

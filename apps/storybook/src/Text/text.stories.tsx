@@ -5,6 +5,7 @@ import {
   TEXT_SEMANTICS,
   TextStylesTypesKeys,
 } from "@repo/design-system/components/Text";
+import { vars } from "@repo/design-system/styles";
 
 const meta: Meta<typeof Text> = {
   title: "FOUNDATION/Text",
@@ -17,10 +18,25 @@ const meta: Meta<typeof Text> = {
     as: {
       control: "select",
       options: TEXT_SEMANTICS,
+      table: {
+        defaultValue: { summary: "span" },
+      },
     },
     textStyles: {
       control: "select",
       options: TextStylesTypesKeys,
+      description: "Typography scale",
+      table: {
+        defaultValue: {},
+      },
+    },
+    fontSize: {
+      control: "select",
+      options: Object.keys(vars.typography.fontSize),
+    },
+    fontWeight: {
+      control: "select",
+      options: Object.keys(vars.typography.fontWeights),
     },
   },
   parameters: {
@@ -35,7 +51,7 @@ export type Story = StoryObj<typeof Text>;
 export const TextStory: Story = {
   args: {
     children: "Text",
-    as: "p",
+    as: "span",
   },
   render: (args) => {
     return <Text {...args}>{args.children}</Text>;
