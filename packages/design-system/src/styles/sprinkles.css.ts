@@ -1,5 +1,6 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { vars } from "./theme.css";
+import { flex as flexTokens } from "@/tokens/layout";
 
 const responsiveProperties = defineProperties({
   conditions: {
@@ -19,10 +20,10 @@ const responsiveProperties = defineProperties({
       "flex",
       "grid",
     ],
-    flexWrap: ["nowrap", "wrap", "wrap-reverse"],
-    flexDirection: ["row", "row-reverse", "column", "column-reverse"],
-    alignItems: ["stretch", "flex-start", "center", "flex-end"],
-    justifyContent: ["flex-start", "center", "flex-end", "space-between"],
+    flexWrap: flexTokens.flexWrap,
+    flexDirection: flexTokens.flexDirection,
+    alignItems: flexTokens.alignItems,
+    justifyContent: flexTokens.justifyContent,
     paddingTop: vars.spacing,
     paddingBottom: vars.spacing,
     paddingLeft: vars.spacing,
