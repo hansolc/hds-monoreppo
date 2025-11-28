@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Flex } from "@repo/design-system/components/Flex";
 import { ALL_SEMANTIC_ELEMENTS } from "../../constant";
-import { flexTokens } from "@repo/design-system/styles";
-import { vars } from "@repo/design-system/styles";
+import { responsiveProperties } from "@repo/design-system/styles";
 
 const meta: Meta<typeof Flex> = {
   title: "LAYOUT/Flex",
@@ -19,29 +18,29 @@ const meta: Meta<typeof Flex> = {
     },
     gap: {
       control: "select",
-      options: Object.keys(vars.spacing),
+      options: Object.keys(responsiveProperties.styles.gap.values),
       table: {
         defaultValue: { summary: "small" },
       },
     },
     direction: {
       control: "select",
-      options: flexTokens.flexDirection,
+      options: Object.keys(responsiveProperties.styles.flexDirection.values),
       table: {
         defaultValue: { summary: "row" },
       },
     },
     wrap: {
       control: "select",
-      options: flexTokens.flexWrap,
+      options: Object.keys(responsiveProperties.styles.flexWrap.values),
     },
     align: {
       control: "select",
-      options: flexTokens.alignItems,
+      options: Object.keys(responsiveProperties.styles.alignItems.values),
     },
     justify: {
       control: "select",
-      options: flexTokens.justifyContent,
+      options: Object.keys(responsiveProperties.styles.justifyContent.values),
     },
   },
   parameters: {

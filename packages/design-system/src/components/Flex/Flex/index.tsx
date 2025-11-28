@@ -1,8 +1,7 @@
 import { AtomProps } from "@/types/atoms";
 import { ElementType, forwardRef, HTMLAttributes } from "react";
 import { Box } from "@/components/Box";
-import { flexTokens } from "@/styles";
-import { spacing } from "@/tokens";
+import { responsiveProperties } from "@/styles";
 
 export interface FlexProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "color">,
@@ -16,11 +15,11 @@ export interface FlexProps
       | "gap"
     > {
   as?: ElementType;
-  wrap?: (typeof flexTokens.flexWrap)[number];
-  direction?: (typeof flexTokens.flexDirection)[number];
-  align?: (typeof flexTokens.alignItems)[number];
-  justify?: (typeof flexTokens.justifyContent)[number];
-  gap?: keyof typeof spacing;
+  wrap?: keyof typeof responsiveProperties.styles.flexWrap.values;
+  direction?: keyof typeof responsiveProperties.styles.flexDirection.values;
+  align?: keyof typeof responsiveProperties.styles.alignItems.values;
+  justify?: keyof typeof responsiveProperties.styles.justifyContent.values;
+  gap?: keyof typeof responsiveProperties.styles.gap.values;
 }
 
 const Flex = forwardRef<HTMLDivElement, FlexProps>(
