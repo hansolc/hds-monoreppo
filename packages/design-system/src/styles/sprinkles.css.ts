@@ -78,9 +78,9 @@ export const colorProperties = defineProperties({
 export const unresponsiveProperties = defineProperties({
   properties: {
     position: ["absolute", "relative", "fixed", "sticky"],
-    flexShrink: [0, 1],
-    flexGrow: [0, 1],
-    flex: [1],
+    flexShrink: [0, 1, 2, 3],
+    flexGrow: [0, 1, 2, 3],
+    flex: [1, 2, 3],
     borderStyle: ["solid", "none"],
     cursor: ["default", "pointer", "not-allowed"],
     overflow: ["hidden", "auto"],

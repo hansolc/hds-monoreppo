@@ -7,6 +7,9 @@ import { responsiveProperties } from "@repo/design-system/styles";
 const meta: Meta<typeof Flex> = {
   title: "LAYOUT/Flex",
   component: Flex,
+  subcomponents: {
+    "Flex.Item": Flex.Item,
+  },
   argTypes: {
     as: {
       control: "select",
@@ -64,6 +67,20 @@ export const Default: Story = {
         <div>item 1</div>
         <div>item 2</div>
         <div>item 3</div>
+      </Flex>
+    );
+  },
+};
+
+export const FlexWithFlexItem: Story = {
+  render: () => {
+    return (
+      <Flex style={{ width: "500px" }}>
+        <Flex.Item flex="1 1 0">flex props</Flex.Item>
+        <Flex.Item flex={1}>flex props with number</Flex.Item>
+        <Flex.Item grow={1}>grow props</Flex.Item>
+        <Flex.Item shrink={1}>shrink props</Flex.Item>
+        <Flex.Item basis={100}>basis props</Flex.Item>
       </Flex>
     );
   },
