@@ -1,7 +1,7 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { vars } from "./theme.css";
 
-const responsiveProperties = defineProperties({
+export const responsiveProperties = defineProperties({
   conditions: {
     mobile: {},
     tablet: { "@media": "screen and (min-width: 768px)" },
@@ -21,8 +21,15 @@ const responsiveProperties = defineProperties({
     ],
     flexWrap: ["nowrap", "wrap", "wrap-reverse"],
     flexDirection: ["row", "row-reverse", "column", "column-reverse"],
-    alignItems: ["stretch", "flex-start", "center", "flex-end"],
-    justifyContent: ["flex-start", "center", "flex-end", "space-between"],
+    alignItems: ["flex-start", "flex-end", "center", "baseline", "stretch"],
+    justifyContent: [
+      "flex-start",
+      "flex-end",
+      "center",
+      "space-between",
+      "space-around",
+      "space-evenly",
+    ],
     paddingTop: vars.spacing,
     paddingBottom: vars.spacing,
     paddingLeft: vars.spacing,
@@ -56,7 +63,7 @@ const responsiveProperties = defineProperties({
   },
 });
 
-const colorProperties = defineProperties({
+export const colorProperties = defineProperties({
   properties: {
     backgroundColor: vars.color,
     color: vars.color,
@@ -71,9 +78,9 @@ const colorProperties = defineProperties({
 export const unresponsiveProperties = defineProperties({
   properties: {
     position: ["absolute", "relative", "fixed", "sticky"],
-    flexShrink: [0, 1],
-    flexGrow: [0, 1],
-    flex: [1],
+    flexShrink: [0, 1, 2, 3],
+    flexGrow: [0, 1, 2, 3],
+    flex: [1, 2, 3],
     borderStyle: ["solid", "none"],
     cursor: ["default", "pointer", "not-allowed"],
     overflow: ["hidden", "auto"],
