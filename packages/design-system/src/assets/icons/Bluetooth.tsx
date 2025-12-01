@@ -1,0 +1,18 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const SvgBluetooth = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path
+      fill="#1D1B20"
+      d="M11 22v-7.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5 11 9.6V2h1l5.7 5.7-4.3 4.3 4.3 4.3L12 22zm2-12.4 1.9-1.9L13 5.85zm0 8.55 1.9-1.85-1.9-1.9z"
+    />
+  </svg>
+);
+export default SvgBluetooth;

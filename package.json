@@ -16,7 +16,8 @@
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
     "preview-storybook": "turbo run preview-storybook",
-    "prepare": "husky"
+    "prepare": "husky",
+    "icons:generate": "pnpm --filter @repo/design-system run icons:generate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

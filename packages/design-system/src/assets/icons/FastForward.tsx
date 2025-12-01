@@ -1,0 +1,18 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const SvgFastForward = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    fill="none"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path
+      fill="#1D1B20"
+      d="M2.5 18V6l9 6zm10 0V6l9 6zm-8-3.75L7.9 12 4.5 9.75zm10 0L17.9 12l-3.4-2.25z"
+    />
+  </svg>
+);
+export default SvgFastForward;
