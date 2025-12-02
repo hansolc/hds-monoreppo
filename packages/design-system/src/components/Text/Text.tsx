@@ -1,40 +1,48 @@
 // packages/design-system/src/components/Text/Text.tsx
 import { Box } from "@/components/Box";
-import { forwardRef, HTMLAttributes } from "react";
+import { forwardRef, ElementType } from "react"; // HTMLAttributes 제거
 import { text, type TextStylesTypes } from "./Text.css";
 import { AtomProps } from "@/types/atoms";
-import { TextSemantic } from "./types";
 import clsx from "clsx";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from "@/types/polymorphic";
 
-/** CSS 우선순위 (Sprinkles, Recipes)
- * - utils/atoms 을 보면 sprinkles가 먼저, classname이 나중에 적용된다.
- * - 현재 상황에서는 textStyles가 recipes / fontSize가 sprinkles 이다.
- * - 따라서, textStyles가 우선순위가 높다.
- */
-
-export interface TextProps
+// 1. 고유 Props 정의 (HTML 속성 제외)
+interface TextBaseProps
   extends Pick<
-      AtomProps,
-      | "fontSize"
-      | "fontWeight"
-      | "lineHeight"
-      | "letterSpacing"
-      | "textAlign"
-      | "whiteSpace"
-      | "textDecoration"
-      | "color"
-    >,
-    Omit<HTMLAttributes<HTMLSpanElement>, "color"> {
-  as?: TextSemantic;
+    AtomProps,
+    | "fontSize"
+    | "fontWeight"
+    | "lineHeight"
+    | "letterSpacing"
+    | "textAlign"
+    | "whiteSpace"
+    | "textDecoration"
+    | "color"
+  > {
   textStyles?: TextStylesTypes;
 }
 
-export const Text = forwardRef<HTMLElement, TextProps>(
-  ({ children, as = "span", textStyles, className, ...props }, ref) => {
+// 2. Polymorphic Props 정의
+export type TextProps<C extends ElementType> = PolymorphicComponentProps<
+  C,
+  TextBaseProps
+>;
+
+const TextImplementation = forwardRef(
+  <C extends ElementType = "span">(
+    { children, as, textStyles, className, ...props }: TextProps<C>,
+    ref?: PolymorphicRef<C>["ref"],
+  ) => {
+    const Component = as || "span"; // TextSemantic이 ElementType 호환된다면 사용 가능
+
     return (
       <Box
+        as={Component}
         ref={ref}
-        as={as}
         className={clsx(text({ textStyles }), className)}
         {...props}
       >
@@ -43,3 +51,10 @@ export const Text = forwardRef<HTMLElement, TextProps>(
     );
   },
 );
+
+TextImplementation.displayName = "Text";
+
+export default TextImplementation as PolymorphicComponent<
+  "span",
+  TextBaseProps
+>;

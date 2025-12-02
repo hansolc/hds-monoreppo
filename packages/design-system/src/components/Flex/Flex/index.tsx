@@ -1,20 +1,23 @@
 import { AtomProps } from "@/types/atoms";
-import { ElementType, forwardRef, HTMLAttributes } from "react";
+import { ElementType, forwardRef } from "react";
 import { Box } from "@/components/Box";
 import { responsiveProperties } from "@/styles";
+import {
+  PolymorphicComponent,
+  PolymorphicComponentProps,
+  PolymorphicRef,
+} from "@/types/polymorphic";
 
-export interface FlexProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, "color">,
-    Omit<
-      AtomProps,
-      | "display"
-      | "flexWrap"
-      | "flexDirection"
-      | "alignItems"
-      | "justifyContent"
-      | "gap"
-    > {
-  as?: ElementType;
+export interface FlexBaseProps
+  extends Omit<
+    AtomProps,
+    | "display"
+    | "flexWrap"
+    | "flexDirection"
+    | "alignItems"
+    | "justifyContent"
+    | "gap"
+  > {
   wrap?: keyof typeof responsiveProperties.styles.flexWrap.values;
   direction?: keyof typeof responsiveProperties.styles.flexDirection.values;
   align?: keyof typeof responsiveProperties.styles.alignItems.values;
@@ -22,23 +25,28 @@ export interface FlexProps
   gap?: keyof typeof responsiveProperties.styles.gap.values;
 }
 
-const Flex = forwardRef<HTMLDivElement, FlexProps>(
-  (
+export type FlexProps<C extends ElementType> = PolymorphicComponentProps<
+  C,
+  FlexBaseProps
+>;
+
+const FlexImplementation = forwardRef(
+  <C extends ElementType = "div">(
     {
       children,
-      as = "div",
+      as,
       direction = "row",
-      gap = "small", // default 8px
+      gap = "small",
       wrap,
       align,
       justify,
       ...props
-    },
-    ref,
+    }: FlexProps<C>,
+    ref?: PolymorphicRef<C>["ref"],
   ) => {
     return (
       <Box
-        as={as}
+        as={as || "div"}
         ref={ref}
         display="flex"
         flexWrap={wrap}
@@ -54,6 +62,6 @@ const Flex = forwardRef<HTMLDivElement, FlexProps>(
   },
 );
 
-Flex.displayName = "Flex";
+FlexImplementation.displayName = "Flex";
 
-export default Flex;
+export default FlexImplementation as PolymorphicComponent<"div", FlexBaseProps>;
