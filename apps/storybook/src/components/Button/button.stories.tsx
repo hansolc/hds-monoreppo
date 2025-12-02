@@ -17,6 +17,6 @@ export type Story = StoryObj<typeof Button>;
 
 export const ButtonTestStory: Story = {
   render: () => {
-    return <Button>Button</Button>;
+    return <Button as="button">Button</Button>;
   },
 };
