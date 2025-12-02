@@ -1,49 +1,27 @@
-import type {
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementType,
-  PropsWithChildren,
-} from "react";
-
-/**
- * Polymorphic component의 ref 타입을 정의
- * @template C - 컴포넌트의 기본 HTML 엘리먼트 타입
- */
-export type PolymorphicRef<C extends ElementType> =
-  ComponentPropsWithRef<C>["ref"];
-
-/**
- * 'as' prop의 타입을 정의
- * @template C - 변환하고자 하는 엘리먼트 타입
- */
-export type AsProp<C extends ElementType> = {
-  as?: C;
+export type AsProp<T extends React.ElementType> = {
+  as?: T;
 };
 
-/**
- * 중복되는 prop 키들을 제거하기 위한 유틸리티 타입
- * @template C - 컴포넌트의 기본 HTML 엘리먼트 타입
- * @template P - 컴포넌트의 추가 props 타입
- */
-export type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
+export type PolymorphicRef<T extends React.ElementType> =
+  React.ComponentPropsWithRef<T>["ref"];
+
+export type PolymorphicComponentProps<
+  T extends React.ElementType,
+  Props = {},
+> = AsProp<T> &
+  React.ComponentPropsWithoutRef<T> &
+  Props & {
+    ref?: PolymorphicRef<T>;
+  };
 
 /**
- * ref가 없는 Polymorphic 컴포넌트의 props 타입
- * @template C - 컴포넌트의 기본 HTML 엘리먼트 타입
- * @template Props - 컴포넌트의 추가 props 타입
+ * 반복되는 컴포넌트 타입 정의를 줄이기 위한 유틸리티 타입
+ * @template DefaultTag 기본으로 렌더링할 태그 (예: "div", "button")
+ * @template Props 컴포넌트 고유의 Props
  */
-export type PolymorphicComponentProp<
-  C extends ElementType,
-  Props = Record<string, unknown>,
-> = PropsWithChildren<Props & AsProp<C>> &
-  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
-
-/**
- * ref를 포함한 Polymorphic 컴포넌트의 props 타입
- * @template C - 컴포넌트의 기본 HTML 엘리먼트 타입
- * @template Props - 컴포넌트의 추가 props 타입
- */
-export type PolymorphicComponentPropWithRef<
-  C extends ElementType,
-  Props = Record<string, unknown>,
-> = PolymorphicComponentProp<C, Props> & { ref?: PolymorphicRef<C> };
+export type PolymorphicComponent<
+  DefaultTag extends React.ElementType,
+  Props = {},
+> = <C extends React.ElementType = DefaultTag>(
+  props: PolymorphicComponentProps<C, Props>,
+) => React.ReactElement | null;
