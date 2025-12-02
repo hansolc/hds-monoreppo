@@ -15,12 +15,16 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "turbo run build --filter=docs^... && changeset publish",
-    "preview-storybook": "turbo run preview-storybook"
+    "preview-storybook": "turbo run preview-storybook",
+    "prepare": "husky",
+    "icons:generate": "pnpm --filter @repo/design-system run icons:generate"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.2.5",
     "turbo": "^2.6.0",
     "typescript": "^5.9.3"
@@ -28,5 +32,8 @@
   "dependencies": {
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": "prettier --write"
   }
 }
