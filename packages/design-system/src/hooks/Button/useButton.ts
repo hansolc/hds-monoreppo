@@ -129,6 +129,7 @@ function useButton(props: UseButtonProps) {
   );
 
   const baseButtonProps = {
+    as: SemanticElement,
     role,
     // native button이 아닐 때만 type을 undefined로 설정하거나, 필요시 전달
     type: isNativeButton ? type : undefined,
