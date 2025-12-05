@@ -4,11 +4,10 @@
 
 import {
   Dispatch,
-  RefObject,
   SetStateAction,
   useCallback,
   useEffect,
-  useInsertionEffect,
+  useEffectEvent,
   useRef,
   useState,
 } from "react";
@@ -27,7 +26,7 @@ export default function useControllableState<T>({
   defaultProp,
   onChange = () => {},
 }: UseControllableStateParams<T>): [T, SetStateFn<T>] {
-  const [uncontrolledProp, setUncontrolledProp, onChangeRef] =
+  const [uncontrolledProp, setUncontrolledProp, stableOnChange] =
     useUncontrollabledState({
       defaultProp,
       onChange,
@@ -41,13 +40,13 @@ export default function useControllableState<T>({
       if (isControlled) {
         const value = isFunction(nextValue) ? nextValue(prop) : nextValue;
         if (value !== prop) {
-          onChangeRef.current?.(value);
+          stableOnChange(value);
         }
       } else {
         setUncontrolledProp(nextValue);
       }
     },
-    [isControlled, prop, setUncontrolledProp, onChangeRef],
+    [isControlled, prop, setUncontrolledProp, stableOnChange],
   );
 
   return [value, setValue];
@@ -59,25 +58,21 @@ function useUncontrollabledState<T>({
 }: Omit<UseControllableStateParams<T>, "prop">): [
   Value: T,
   setValue: Dispatch<SetStateAction<T>>,
-  onChangeRef: RefObject<ChangeHandler<T> | undefined>,
+  onChangeRef: ChangeHandler<T>,
 ] {
   const [value, setValue] = useState(defaultProp);
   const prevValueRef = useRef(value);
 
-  const onChangeRef = useRef(onChange);
-
-  useInsertionEffect(() => {
-    onChangeRef.current = onChange;
-  }, [onChange]);
+  const stableOnChange = useEffectEvent(onChange ?? (() => {}));
 
   useEffect(() => {
     if (prevValueRef.current !== value) {
-      onChangeRef.current?.(value);
+      stableOnChange(value);
       prevValueRef.current = value;
     }
-  }, [value, prevValueRef]);
+  }, [value, prevValueRef, stableOnChange]);
 
-  return [value, setValue, onChangeRef];
+  return [value, setValue, stableOnChange];
 }
 
 function isFunction(value: unknown): value is (...args: any[]) => any {

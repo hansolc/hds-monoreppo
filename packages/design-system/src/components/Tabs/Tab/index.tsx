@@ -1,5 +1,5 @@
 import { Box } from "@/components/Box";
-import { ElementType, forwardRef, useId, useState } from "react";
+import { ElementType, forwardRef, useId } from "react";
 import {
   PolymorphicComponent,
   PolymorphicComponentProps,
@@ -9,9 +9,14 @@ import {
   TabContext,
   type TabContextState,
 } from "@/components/Tabs/context/TabsContext";
+import useControllableState from "@/hooks/useControllableState";
 
-interface TabsBaseProps extends TabContextState {
+export interface TabsBaseProps extends TabContextState {
   // Add your custom props here
+  value?: string;
+  onValueChange?: (value: string) => void;
+  defaultValue?: string;
+  baseId?: string;
 }
 
 export type TabsProps<C extends ElementType> = PolymorphicComponentProps<
@@ -21,26 +26,33 @@ export type TabsProps<C extends ElementType> = PolymorphicComponentProps<
 
 const TabsImplementation = forwardRef(
   <C extends ElementType = "div">(
-    {
-      as,
+    props: TabsProps<C>,
+    ref?: PolymorphicRef<C>["ref"],
+  ) => {
+    const {
+      as = "div",
       children,
       // destructure your props here
       baseId,
       value: valueProp,
+      defaultValue,
       onValueChange,
       ...restProps
-    }: TabsProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ) => {
-    const Component = as || "div";
+    } = props;
+
     const id = baseId || useId();
-    const isControlled = valueProp !== undefined;
-    const [value, setValue] = useState(valueProp);
+    const [value, setValue] = useControllableState({
+      prop: valueProp,
+      onChange: onValueChange,
+      defaultProp: defaultValue ?? "",
+    });
 
     return (
-      <TabContext.Provider value={{ baseId: id, value, onValueChange }}>
+      <TabContext.Provider
+        value={{ baseId: id, value, onValueChange: setValue }}
+      >
         <Box
-          as={Component}
+          as={as as ElementType}
           ref={ref}
           // Add Box props here
           {...restProps}

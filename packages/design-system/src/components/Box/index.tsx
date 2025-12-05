@@ -1,39 +1,31 @@
-import { type ElementType, type HTMLAttributes, forwardRef } from "react";
+import { type ElementType, Ref } from "react";
 import type { Atoms } from "@/types/atoms";
-import type {
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
 import { atoms, extractAtoms } from "@/utils/atoms";
+import { Props, RefProp } from "@/types/props";
+import { forwardRefWithAs } from "@/utils/forwardRef";
 
-type HTMLProperties<C extends ElementType = "div"> = Omit<
-  HTMLAttributes<C>,
-  "className" | "color" | "height" | "width" | "size"
->;
+type BoxProps<TTag extends ElementType = "div"> = Props<TTag, {}> & Atoms;
 
-type BoxProps<C extends ElementType = "div"> = PolymorphicComponentProps<
-  C,
-  HTMLProperties<C> & Atoms
->;
+function BoxFn<TTag extends ElementType = "div">(
+  props: BoxProps<TTag>,
+  ref?: Ref<HTMLElement>,
+) {
+  const { as = "div", className, ...restProps } = props;
+  const [atomsProps, propsToForward] = extractAtoms(restProps);
+  const Comp = (as || "div") as ElementType;
+  const atomClassName = atoms({
+    className,
+    reset: typeof Comp === "string" ? Comp : "div",
+    ...atomsProps,
+  });
 
-type BoxComponent = <C extends ElementType = "div">(
-  props: BoxProps<C>,
-) => React.ReactElement | null;
+  return <Comp {...propsToForward} className={atomClassName} ref={ref} />;
+}
 
-export const Box: BoxComponent = forwardRef(
-  <C extends ElementType = "div">(
-    { as, className, ...props }: BoxProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ): React.ReactElement | null => {
-    const [atomsProps, propsToForward] = extractAtoms(props);
-    const Component: ElementType = as || "div";
-    const atomClassName = atoms({
-      className,
-      reset: typeof Component === "string" ? Component : "div",
-      ...atomsProps,
-    });
-    return (
-      <Component {...propsToForward} className={atomClassName} ref={ref} />
-    );
-  },
-) as BoxComponent;
+export interface _internal_ComponentBox {
+  <TTag extends ElementType = "div">(
+    props: BoxProps<TTag> & RefProp<typeof BoxFn>,
+  ): React.JSX.Element;
+}
+
+export const Box = forwardRefWithAs(BoxFn, "Box") as _internal_ComponentBox;
