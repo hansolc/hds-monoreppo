@@ -27,18 +27,20 @@ export type FlexItemProps<C extends ElementType> = PolymorphicComponentProps<
 // 3. 구현 (ForwardRef)
 const FlexItemImplementation = forwardRef(
   <C extends ElementType = "div">(
-    {
+    props: FlexItemProps<C>,
+    ref?: PolymorphicRef<C>["ref"],
+  ) => {
+    const {
       children,
-      as,
+      as = "div",
       grow,
       shrink,
       flex,
       basis,
       style,
-      ...props
-    }: FlexItemProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ) => {
+      ...restProps
+    } = props;
+
     const inlineStyle = {
       ...style,
       ...(flex ? { flex } : {}),
@@ -46,12 +48,12 @@ const FlexItemImplementation = forwardRef(
     };
     return (
       <Box
+        as={as as ElementType}
         ref={ref}
-        as={as || "div"}
         style={inlineStyle}
         flexGrow={grow}
         flexShrink={shrink}
-        {...props}
+        {...restProps}
       >
         {children}
       </Box>

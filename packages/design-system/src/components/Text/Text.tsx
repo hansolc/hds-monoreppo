@@ -34,17 +34,23 @@ export type TextProps<C extends ElementType> = PolymorphicComponentProps<
 
 const TextImplementation = forwardRef(
   <C extends ElementType = "span">(
-    { children, as, textStyles, className, ...props }: TextProps<C>,
+    props: TextProps<C>,
     ref?: PolymorphicRef<C>["ref"],
   ) => {
-    const Component = as || "span"; // TextSemantic이 ElementType 호환된다면 사용 가능
+    const {
+      children,
+      as = "span",
+      textStyles,
+      className,
+      ...restProps
+    } = props;
 
     return (
       <Box
-        as={Component}
+        as={as as ElementType}
         ref={ref}
         className={clsx(text({ textStyles }), className)}
-        {...props}
+        {...restProps}
       >
         {children}
       </Box>

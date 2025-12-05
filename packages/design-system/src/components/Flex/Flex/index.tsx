@@ -32,21 +32,22 @@ export type FlexProps<C extends ElementType> = PolymorphicComponentProps<
 
 const FlexImplementation = forwardRef(
   <C extends ElementType = "div">(
-    {
+    props: FlexProps<C>,
+    ref?: PolymorphicRef<C>["ref"],
+  ) => {
+    const {
       children,
-      as,
+      as = "div",
       direction = "row",
       gap = "small",
       wrap,
       align,
       justify,
-      ...props
-    }: FlexProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ) => {
+      ...restProps
+    } = props;
     return (
       <Box
-        as={as || "div"}
+        as={as as ElementType}
         ref={ref}
         display="flex"
         flexWrap={wrap}
@@ -54,7 +55,7 @@ const FlexImplementation = forwardRef(
         alignItems={align}
         justifyContent={justify}
         gap={gap}
-        {...props}
+        {...restProps}
       >
         {children}
       </Box>

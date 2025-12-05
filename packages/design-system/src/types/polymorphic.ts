@@ -9,7 +9,7 @@ export type PolymorphicComponentProps<
   T extends React.ElementType,
   Props = {},
 > = AsProp<T> &
-  React.ComponentPropsWithoutRef<T> &
+  Omit<React.ComponentPropsWithoutRef<T>, keyof Props> &
   Props & {
     ref?: PolymorphicRef<T>;
   };
