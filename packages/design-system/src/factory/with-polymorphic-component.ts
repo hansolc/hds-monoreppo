@@ -23,7 +23,7 @@ import {
 //  */
 export function withPolymorphicComponent<
   DefaultTag extends React.ElementType,
-  ExtraProps = {},
+  ExtraProps = object,
 >(
   render: (
     props: PolymorphicComponentProps<DefaultTag, ExtraProps>,
@@ -35,6 +35,7 @@ export function withPolymorphicComponent<
 
   // 컴포넌트 반환타입
   type ComponentType = ForwardRefExoticComponent<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     BaseProps & RefAttributes<any>
   > & {
     <T extends ElementType = DefaultTag>(
