@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button, Flex } from "@repo/design-system";
+import { Button } from "@repo/design-system";
 import { ALL_SEMANTIC_ELEMENTS } from "../../constant";
-import { useRef } from "react";
 
 const meta: Meta<typeof Button> = {
   title: "COMPONENTS/Button",
@@ -54,22 +53,16 @@ export const Default: Story = {
     loading: false,
     selected: false,
   },
-  render: ({ ...args }) => {
-    const ref = useRef<HTMLButtonElement>(null);
-
+  render: ({ disabled, loading, selected, children, ...args }) => {
     return (
-      <Flex>
-        <Button
-          ref={ref}
-          disabled={args.disabled}
-          loading={args.loading}
-          selected={args.selected}
-          aria-label="this is not button"
-        >
-          {args.children}
-        </Button>
-        <Flex></Flex>
-      </Flex>
+      <Button
+        {...args}
+        disabled={disabled}
+        loading={loading}
+        selected={selected}
+      >
+        {children}
+      </Button>
     );
   },
 };

@@ -1,37 +1,36 @@
+import { Atoms } from "@/types/atoms";
+import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
+import { forwardRef } from "react";
 import { Box } from "@/components/Box";
-import { ElementType, forwardRef } from "react";
+import clsx from "clsx";
 import { useButton } from "@/hooks/Button";
-import {
-  PolymorphicComponent,
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
 
-interface ButtonBaseProps {
+interface _ButtonProps {
   selected?: boolean;
   disabled?: boolean;
   loading?: boolean;
 }
 
-export type ButtonProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  ButtonBaseProps
->;
+export type ButtonProps<C extends React.ElementType = "button"> =
+  PolymorphicComponentProps<C, _ButtonProps> & Atoms;
 
-const ButtonImplementation = forwardRef(
-  <C extends ElementType = "button">(
-    props: ButtonProps<C>,
+type ButtonComponent = <C extends React.ElementType = "button">(
+  props: ButtonProps<C>,
+) => React.ReactElement | null;
+
+export const Button = forwardRef(
+  <C extends React.ElementType = "button">(
+    {
+      as,
+      children,
+      selected,
+      disabled,
+      loading,
+      className,
+      ...restProps
+    }: ButtonProps<C>,
     ref?: PolymorphicRef<C>["ref"],
   ) => {
-    const {
-      as = "button",
-      children,
-      selected = false,
-      disabled = false,
-      loading = false,
-      ...restProps
-    } = props;
-
     const { baseButtonProps } = useButton({
       as,
       role: "button",
@@ -40,18 +39,15 @@ const ButtonImplementation = forwardRef(
       loading,
       ...restProps,
     });
-
     return (
-      <Box {...baseButtonProps} ref={ref} {...restProps}>
+      <Box
+        className={clsx(className)}
+        ref={ref}
+        {...baseButtonProps}
+        {...restProps}
+      >
         {children}
       </Box>
     );
   },
-);
-
-ButtonImplementation.displayName = "Button";
-
-export default ButtonImplementation as PolymorphicComponent<
-  "button",
-  ButtonBaseProps
->;
+) as ButtonComponent;

@@ -1,15 +1,11 @@
 import { Box } from "@/components/Box";
 import { AtomProps } from "@/types/atoms";
-import { ElementType, forwardRef } from "react";
+import { forwardRef } from "react";
 import { unresponsiveProperties } from "@/styles/sprinkles.css";
-import {
-  PolymorphicComponent,
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
+import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
 
 // 1. 고유 Props 선언 (필수)
-interface FlexItemBaseProps
+interface _FlexItemProps
   extends Omit<AtomProps, "display" | "flex" | "flexGrow" | "flexShrink"> {
   grow?: keyof typeof unresponsiveProperties.styles.flexGrow.values;
   shrink?: keyof typeof unresponsiveProperties.styles.flexShrink.values;
@@ -19,39 +15,39 @@ interface FlexItemBaseProps
 
 // 2. 외부 사용을 위한 Props 타입 내보내기 (선택사항)
 // 필요하다면 이 한 줄만 작성하면 됩니다.
-export type FlexItemProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  FlexItemBaseProps
->;
+export type FlexItemProps<C extends React.ElementType = "div"> =
+  PolymorphicComponentProps<C, _FlexItemProps>;
 
-// 3. 구현 (ForwardRef)
-const FlexItemImplementation = forwardRef(
-  <C extends ElementType = "div">(
+export const FlexItem = forwardRef(
+  <C extends React.ElementType = "div">(
     {
-      children,
       as,
+      children,
       grow,
       shrink,
       flex,
       basis,
       style,
-      ...props
+      ...restProps
     }: FlexItemProps<C>,
     ref?: PolymorphicRef<C>["ref"],
   ) => {
+    const Element = as || "div";
+
     const inlineStyle = {
       ...style,
       ...(flex ? { flex } : {}),
       ...(basis ? { flexBasis: basis } : {}),
     };
+
     return (
       <Box
+        as={Element}
         ref={ref}
-        as={as || "div"}
         style={inlineStyle}
         flexGrow={grow}
         flexShrink={shrink}
-        {...props}
+        {...restProps}
       >
         {children}
       </Box>
@@ -59,10 +55,4 @@ const FlexItemImplementation = forwardRef(
   },
 );
 
-FlexItemImplementation.displayName = "FlexItem";
-
-// 4. 타입 단언을 통해 간결하게 export
-export default FlexItemImplementation as PolymorphicComponent<
-  "div",
-  FlexItemBaseProps
->;
+FlexItem.displayName = "FlexItem";

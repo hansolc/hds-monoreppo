@@ -1,10 +1,14 @@
-export type AsProp<T extends React.ElementType> = {
+// ref: https://kciter.so/posts/polymorphic-react-component/
+// 기존 작성한 ViewProps에서 as를 분리한다.
+type AsProp<T extends React.ElementType> = {
   as?: T;
 };
 
+// 직관적인 이름을 붙여서 타입으로 만들어준다.
 export type PolymorphicRef<T extends React.ElementType> =
   React.ComponentPropsWithRef<T>["ref"];
 
+// 결합 타입을 만든다.
 export type PolymorphicComponentProps<
   T extends React.ElementType,
   Props = {},
@@ -13,15 +17,3 @@ export type PolymorphicComponentProps<
   Props & {
     ref?: PolymorphicRef<T>;
   };
-
-/**
- * 반복되는 컴포넌트 타입 정의를 줄이기 위한 유틸리티 타입
- * @template DefaultTag 기본으로 렌더링할 태그 (예: "div", "button")
- * @template Props 컴포넌트 고유의 Props
- */
-export type PolymorphicComponent<
-  DefaultTag extends React.ElementType,
-  Props = {},
-> = <C extends React.ElementType = DefaultTag>(
-  props: PolymorphicComponentProps<C, Props>,
-) => React.ReactElement | null;

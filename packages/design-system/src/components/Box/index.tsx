@@ -1,39 +1,27 @@
-import { type ElementType, type HTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import type { Atoms } from "@/types/atoms";
-import type {
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
 import { atoms, extractAtoms } from "@/utils/atoms";
+import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
 
-type HTMLProperties<C extends ElementType = "div"> = Omit<
-  HTMLAttributes<C>,
-  "className" | "color" | "height" | "width" | "size"
->;
+export type BoxProps<T extends React.ElementType> =
+  PolymorphicComponentProps<T> & Atoms;
 
-type BoxProps<C extends ElementType = "div"> = PolymorphicComponentProps<
-  C,
-  HTMLProperties<C> & Atoms
->;
-
-type BoxComponent = <C extends ElementType = "div">(
-  props: BoxProps<C>,
+type BoxComponent = <T extends React.ElementType = "div">(
+  props: BoxProps<T>,
 ) => React.ReactElement | null;
 
-export const Box: BoxComponent = forwardRef(
-  <C extends ElementType = "div">(
-    { as, className, ...props }: BoxProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ): React.ReactElement | null => {
-    const [atomsProps, propsToForward] = extractAtoms(props);
-    const Component: ElementType = as || "div";
+export const Box = forwardRef(
+  <T extends React.ElementType = "div">(
+    { as, className, ...restProps }: BoxProps<T>,
+    ref: PolymorphicRef<T>["ref"],
+  ) => {
+    const [atomsProps, propsToForward] = extractAtoms(restProps);
+    const Comp = as || "div";
     const atomClassName = atoms({
       className,
-      reset: typeof Component === "string" ? Component : "div",
+      reset: typeof Comp === "string" ? Comp : "div",
       ...atomsProps,
     });
-    return (
-      <Component {...propsToForward} className={atomClassName} ref={ref} />
-    );
+    return <Comp {...propsToForward} className={atomClassName} ref={ref} />;
   },
 ) as BoxComponent;
