@@ -1,11 +1,13 @@
-import { Box } from "@/components/Box";
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { forwardRef } from "react";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
+import { Box } from "@/components/Box";
+import clsx from "clsx";
 import { unresponsiveProperties } from "@/styles/sprinkles.css";
-import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
 
-// 1. 고유 Props 선언 (필수)
-interface _FlexItemProps
+const DISPLAY_NAME = "FlexItem";
+
+export interface _FlexItemProps
   extends Omit<AtomProps, "display" | "flex" | "flexGrow" | "flexShrink"> {
   grow?: keyof typeof unresponsiveProperties.styles.flexGrow.values;
   shrink?: keyof typeof unresponsiveProperties.styles.flexShrink.values;
@@ -13,26 +15,27 @@ interface _FlexItemProps
   basis?: string | number;
 }
 
-// 2. 외부 사용을 위한 Props 타입 내보내기 (선택사항)
-// 필요하다면 이 한 줄만 작성하면 됩니다.
-export type FlexItemProps<C extends React.ElementType = "div"> =
-  PolymorphicComponentProps<C, _FlexItemProps>;
+type FlexItemComponent = <C extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithRef<C, _FlexItemProps>,
+) => React.ReactElement | null;
 
-export const FlexItem = forwardRef(
-  <C extends React.ElementType = "div">(
+export const FlexItem = withPolymorphicComponent<"div", _FlexItemProps>(
+  (
     {
       as,
       children,
+      className,
+      // custom own props here
       grow,
       shrink,
       flex,
       basis,
       style,
       ...restProps
-    }: FlexItemProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
+    },
+    ref,
   ) => {
-    const Element = as || "div";
+    const Component = (as || "div") as React.ElementType;
 
     const inlineStyle = {
       ...style,
@@ -42,8 +45,10 @@ export const FlexItem = forwardRef(
 
     return (
       <Box
-        as={Element}
+        as={Component}
         ref={ref}
+        className={clsx(className)}
+        // add props
         style={inlineStyle}
         flexGrow={grow}
         flexShrink={shrink}
@@ -53,6 +58,5 @@ export const FlexItem = forwardRef(
       </Box>
     );
   },
-);
-
-FlexItem.displayName = "FlexItem";
+  DISPLAY_NAME,
+) as FlexItemComponent;

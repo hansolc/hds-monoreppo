@@ -1,35 +1,36 @@
-import { Atoms } from "@/types/atoms";
-import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
-import { forwardRef } from "react";
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
+import { AtomProps } from "@/types/atoms";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import { useButton } from "@/hooks/Button";
 
-interface _ButtonProps {
+const DISPLAY_NAME = "Button";
+
+interface _ButtonProps extends AtomProps {
+  // custom own props here
   selected?: boolean;
   disabled?: boolean;
   loading?: boolean;
 }
 
-export type ButtonProps<C extends React.ElementType = "button"> =
-  PolymorphicComponentProps<C, _ButtonProps> & Atoms;
-
 type ButtonComponent = <C extends React.ElementType = "button">(
-  props: ButtonProps<C>,
+  props: PolymorphicComponentPropsWithRef<C, _ButtonProps>,
 ) => React.ReactElement | null;
 
-export const Button = forwardRef(
-  <C extends React.ElementType = "button">(
+export const Button = withPolymorphicComponent<"button", _ButtonProps>(
+  (
     {
       as,
       children,
+      className,
+      // custom own props here
       selected,
       disabled,
       loading,
-      className,
       ...restProps
-    }: ButtonProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
+    },
+    ref,
   ) => {
     const { baseButtonProps } = useButton({
       as,
@@ -39,10 +40,11 @@ export const Button = forwardRef(
       loading,
       ...restProps,
     });
+
     return (
       <Box
-        className={clsx(className)}
         ref={ref}
+        className={clsx(className)}
         {...baseButtonProps}
         {...restProps}
       >
@@ -50,4 +52,5 @@ export const Button = forwardRef(
       </Box>
     );
   },
+  DISPLAY_NAME,
 ) as ButtonComponent;

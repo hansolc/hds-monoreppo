@@ -1,19 +1,24 @@
 // ref: https://kciter.so/posts/polymorphic-react-component/
-// 기존 작성한 ViewProps에서 as를 분리한다.
+// ref: https://thisyujeong.dev/blog/polymorphic-component
+
 type AsProp<T extends React.ElementType> = {
   as?: T;
 };
 
-// 직관적인 이름을 붙여서 타입으로 만들어준다.
+type OwnProps<T extends React.ElementType, Props> = keyof (AsProp<T> & Props);
+
+export type PolymorphicComponentProps<
+  T extends React.ElementType,
+  Props = object,
+> = (Props & AsProp<T>) &
+  Omit<React.ComponentPropsWithoutRef<T>, OwnProps<T, Props>>;
+
 export type PolymorphicRef<T extends React.ElementType> =
   React.ComponentPropsWithRef<T>["ref"];
 
-// 결합 타입을 만든다.
-export type PolymorphicComponentProps<
+export type PolymorphicComponentPropsWithRef<
   T extends React.ElementType,
-  Props = {},
-> = AsProp<T> &
-  React.ComponentPropsWithoutRef<T> &
-  Props & {
-    ref?: PolymorphicRef<T>;
-  };
+  Props = object,
+> = PolymorphicComponentProps<T, Props> & {
+  ref: PolymorphicRef<T>;
+};

@@ -7,9 +7,9 @@ import {
   HTMLAttributes,
   MouseEvent,
 } from "react";
-import useHover from "@/hooks/Interactions/useHover";
-import useActive from "@/hooks/Interactions/useActive";
-import useFocus from "@/hooks/Interactions/useFocus";
+import useHover from "@/hooks/Interactions/use-hover";
+import useActive from "@/hooks/Interactions/use-active";
+import useFocus from "@/hooks/Interactions/use-focus";
 
 interface UseButtonProps
   extends Pick<

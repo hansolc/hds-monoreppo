@@ -1,9 +1,11 @@
-import { Box } from "@/components/Box";
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentProps, PolymorphicRef } from "@/types/polymorphic";
-import { forwardRef } from "react";
-import { text, TextStylesTypes } from "./Text.css";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
+import { Box } from "@/components/Box";
 import clsx from "clsx";
+import { text, TextStylesTypes } from "./Text.css";
+
+const DISPLAY_NAME = "Text";
 
 export interface _TextProps
   extends Pick<
@@ -20,27 +22,34 @@ export interface _TextProps
   textStyles?: TextStylesTypes;
 }
 
-export type TextProps<C extends React.ElementType = "span"> =
-  PolymorphicComponentProps<C, _TextProps> & AtomProps;
+type TextComponent = <C extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithRef<C, _TextProps>,
+) => React.ReactElement | null;
 
-export const Text = forwardRef(
-  <C extends React.ElementType = "span">(
-    { as, children, className, textStyles, ...restProps }: TextProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
+export const Text = withPolymorphicComponent<"div", _TextProps>(
+  (
+    {
+      as,
+      children,
+      className,
+      // custom own props here
+      textStyles,
+      ...restProps
+    },
+    ref,
   ) => {
-    const Element = as || "span";
+    const Component = (as || "div") as React.ElementType;
 
     return (
       <Box
-        as={Element}
+        as={Component}
         ref={ref}
-        className={clsx(text({ textStyles }), className)}
+        className={clsx(className, text({ textStyles }))}
         {...restProps}
       >
         {children}
       </Box>
     );
   },
-);
-
-Text.displayName = "Text";
+  DISPLAY_NAME,
+) as TextComponent;
