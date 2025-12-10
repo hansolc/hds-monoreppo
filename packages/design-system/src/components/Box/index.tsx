@@ -12,7 +12,7 @@ type BoxComponent = <T extends React.ElementType = "div">(
   props: PolymorphicComponentPropsWithRef<T, Atoms>,
 ) => React.ReactElement | null;
 
-export const Box = withPolymorphicComponent<"div">(
+export const Box: BoxComponent = withPolymorphicComponent<"div">(
   ({ as, className, ...restProps }, ref) => {
     const Component = (as || "div") as React.ElementType;
     const [atomsProps, propsToForward] = extractAtoms(restProps);
@@ -26,4 +26,4 @@ export const Box = withPolymorphicComponent<"div">(
     );
   },
   DISPLAY_NAME,
-) as BoxComponent;
+);

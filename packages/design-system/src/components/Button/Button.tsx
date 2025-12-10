@@ -18,7 +18,10 @@ type ButtonComponent = <C extends React.ElementType = "button">(
   props: PolymorphicComponentPropsWithRef<C, _ButtonProps>,
 ) => React.ReactElement | null;
 
-export const Button = withPolymorphicComponent<"button", _ButtonProps>(
+export const Button: ButtonComponent = withPolymorphicComponent<
+  "button",
+  _ButtonProps
+>(
   (
     {
       as,
@@ -53,4 +56,4 @@ export const Button = withPolymorphicComponent<"button", _ButtonProps>(
     );
   },
   DISPLAY_NAME,
-) as ButtonComponent;
+);

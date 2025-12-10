@@ -26,7 +26,7 @@ type TextComponent = <C extends React.ElementType = "div">(
   props: PolymorphicComponentPropsWithRef<C, _TextProps>,
 ) => React.ReactElement | null;
 
-export const Text = withPolymorphicComponent<"div", _TextProps>(
+export const Text: TextComponent = withPolymorphicComponent<"div", _TextProps>(
   (
     {
       as,
@@ -52,4 +52,4 @@ export const Text = withPolymorphicComponent<"div", _TextProps>(
     );
   },
   DISPLAY_NAME,
-) as TextComponent;
+);

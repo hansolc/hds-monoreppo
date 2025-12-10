@@ -28,7 +28,7 @@ type FlexComponent = <C extends React.ElementType = "div">(
   props: PolymorphicComponentPropsWithRef<C, _FlexProps>,
 ) => React.ReactElement | null;
 
-export const Flex = withPolymorphicComponent<"div", _FlexProps>(
+export const Flex: FlexComponent = withPolymorphicComponent<"div", _FlexProps>(
   (
     {
       as,
@@ -65,4 +65,4 @@ export const Flex = withPolymorphicComponent<"div", _FlexProps>(
     );
   },
   DISPLAY_NAME,
-) as FlexComponent;
+);
