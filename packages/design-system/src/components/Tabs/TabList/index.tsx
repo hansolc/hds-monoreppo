@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 const DISPLAY_NAME = "TabList";
 
-interface _TabListProps extends AtomProps {
+export interface _TabListProps extends AtomProps {
   // custom own props here
 }
 

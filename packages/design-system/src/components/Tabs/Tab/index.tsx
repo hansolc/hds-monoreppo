@@ -12,7 +12,7 @@ import useControllableState from "@/hooks/use-controllable-state";
 
 const DISPLAY_NAME = "Tab";
 
-interface _TabProps extends AtomProps, TabContextState {
+export interface _TabProps extends AtomProps, TabContextState {
   // custom own props here
   defaultValue?: string;
 }
