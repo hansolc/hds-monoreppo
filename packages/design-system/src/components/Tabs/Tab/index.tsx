@@ -1,45 +1,42 @@
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
+import { AtomProps } from "@/types/atoms";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
-import { ElementType, forwardRef, useId } from "react";
-import {
-  PolymorphicComponent,
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
+import clsx from "clsx";
 import {
   TabContext,
   type TabContextState,
 } from "@/components/Tabs/context/TabsContext";
-import useControllableState from "@/hooks/useControllableState";
+import { useId } from "react";
+import useControllableState from "@/hooks/use-controllable-state";
 
-export interface TabsBaseProps extends TabContextState {
-  // Add your custom props here
-  value?: string;
-  onValueChange?: (value: string) => void;
+const DISPLAY_NAME = "Tab";
+
+interface _TabProps extends AtomProps, TabContextState {
+  // custom own props here
   defaultValue?: string;
-  baseId?: string;
 }
 
-export type TabsProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  TabsBaseProps
->;
+type TabComponent = <C extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithRef<C, _TabProps>,
+) => React.ReactElement | null;
 
-const TabsImplementation = forwardRef(
-  <C extends ElementType = "div">(
-    props: TabsProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
-  ) => {
-    const {
-      as = "div",
+export const Tab: TabComponent = withPolymorphicComponent<"div", _TabProps>(
+  (
+    {
+      as,
       children,
-      // destructure your props here
+      className,
+      // custom own props here
       baseId,
       value: valueProp,
       defaultValue,
       onValueChange,
       ...restProps
-    } = props;
-
+    },
+    ref,
+  ) => {
+    const Component = (as || "div") as React.ElementType;
     const id = baseId || useId();
     const [value, setValue] = useControllableState({
       prop: valueProp,
@@ -52,9 +49,9 @@ const TabsImplementation = forwardRef(
         value={{ baseId: id, value, onValueChange: setValue }}
       >
         <Box
-          as={as as ElementType}
+          as={Component}
           ref={ref}
-          // Add Box props here
+          className={clsx(className)}
           {...restProps}
         >
           {children}
@@ -62,8 +59,5 @@ const TabsImplementation = forwardRef(
       </TabContext.Provider>
     );
   },
+  DISPLAY_NAME,
 );
-
-TabsImplementation.displayName = "Tabs";
-
-export default TabsImplementation as PolymorphicComponent<"div", TabsBaseProps>;

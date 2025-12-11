@@ -1,42 +1,46 @@
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
+import { AtomProps } from "@/types/atoms";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
-import { ElementType, forwardRef } from "react";
-import {
-  PolymorphicComponent,
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
+import clsx from "clsx";
 
-interface TabListBaseProps {
-  // Add your custom props here
+const DISPLAY_NAME = "TabList";
+
+interface _TabListProps extends AtomProps {
+  // custom own props here
 }
 
-export type TabListProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  TabListBaseProps
->;
+type TabListComponent = <C extends React.ElementType = "div">(
+  props: PolymorphicComponentPropsWithRef<C, _TabListProps>,
+) => React.ReactElement | null;
 
-const TabListImplementation = forwardRef(
-  <C extends ElementType = "div">(
-    props: TabListProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
+export const TabList: TabListComponent = withPolymorphicComponent<
+  "div",
+  _TabListProps
+>(
+  (
+    {
+      as,
+      children,
+      className,
+      // custom own props here
+      ...restProps
+    },
+    ref,
   ) => {
-    const { as = "div", children, ...restProps } = props;
+    const Component = (as || "div") as React.ElementType;
+
     return (
       <Box
-        as={as}
+        as={Component}
         ref={ref}
-        // Add Box props here
+        className={clsx(className)}
+        // add props
         {...restProps}
       >
         {children}
       </Box>
     );
   },
+  DISPLAY_NAME,
 );
-
-TabListImplementation.displayName = "TabList";
-
-export default TabListImplementation as PolymorphicComponent<
-  "div",
-  TabListBaseProps
->;
