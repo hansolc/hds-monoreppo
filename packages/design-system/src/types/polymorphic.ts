@@ -20,5 +20,16 @@ export type PolymorphicComponentPropsWithRef<
   T extends React.ElementType,
   Props = object,
 > = PolymorphicComponentProps<T, Props> & {
-  ref: PolymorphicRef<T>;
+  ref?: PolymorphicRef<T>;
+};
+
+export type PolymorphicComponent<
+  DefaultTag extends React.ElementType,
+  ExtraProps = object,
+> = {
+  <T extends React.ElementType = DefaultTag>(
+    props: PolymorphicComponentPropsWithRef<T, ExtraProps>,
+  ): React.ReactElement | null;
+} & {
+  displayName?: string;
 };

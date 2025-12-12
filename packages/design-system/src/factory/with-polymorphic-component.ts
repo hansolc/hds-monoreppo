@@ -1,48 +1,31 @@
-// ref: https://thisyujeong.dev/blog/polymorphic-component
-
+import { ElementType, forwardRef, PropsWithoutRef, ReactElement } from "react";
 import {
   PolymorphicComponentProps,
-  PolymorphicComponentPropsWithRef,
+  PolymorphicRef,
+  PolymorphicComponent,
 } from "@/types/polymorphic";
-import {
-  ComponentPropsWithRef,
-  ElementType,
-  forwardRef,
-  ForwardRefExoticComponent,
-  PropsWithoutRef,
-  ReactElement,
-  RefAttributes,
-} from "react";
 
-//  */
 export function withPolymorphicComponent<
-  DefaultTag extends React.ElementType,
+  DefaultTag extends ElementType,
   ExtraProps = object,
 >(
   render: (
     props: PolymorphicComponentProps<DefaultTag, ExtraProps>,
-    ref: ComponentPropsWithRef<DefaultTag>["ref"],
-  ) => React.ReactElement | null,
+    ref: PolymorphicRef<DefaultTag>,
+  ) => ReactElement | null,
   displayName?: string,
-) {
-  type BaseProps = PolymorphicComponentPropsWithRef<DefaultTag, ExtraProps>;
-
-  type ComponentType = ForwardRefExoticComponent<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    BaseProps & RefAttributes<any>
-  > & {
-    <T extends ElementType = DefaultTag>(
-      props: PolymorphicComponentPropsWithRef<T, ExtraProps>,
-    ): ReactElement | null;
-  };
-
-  const Component = forwardRef(
+): PolymorphicComponent<DefaultTag, ExtraProps> {
+  const Wrapped = forwardRef(
     render as (
-      // props에는 ref가 전달되지 않아야 한다. PropsWithoutRef 사용
       props: PropsWithoutRef<PolymorphicComponentProps<DefaultTag, ExtraProps>>,
-      ref: ComponentPropsWithRef<DefaultTag>["ref"],
+      ref: PolymorphicRef<DefaultTag>,
     ) => ReactElement | null,
-  ) as unknown as ComponentType;
+  );
+
+  const Component = Wrapped as unknown as PolymorphicComponent<
+    DefaultTag,
+    ExtraProps
+  >;
 
   if (displayName) {
     Component.displayName = displayName;

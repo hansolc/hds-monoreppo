@@ -7,7 +7,7 @@ import {
   TabContext,
   type TabContextState,
 } from "@/components/Tabs/context/TabsContext";
-import { useId } from "react";
+import { AnchorHTMLAttributes, useId, useRef } from "react";
 import useControllableState from "@/hooks/use-controllable-state";
 
 const DISPLAY_NAME = "Tab";

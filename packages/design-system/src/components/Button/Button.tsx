@@ -1,6 +1,5 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import { useButton } from "@/hooks/Button";
@@ -12,16 +11,10 @@ interface _ButtonProps extends AtomProps {
   selected?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  value: string;
 }
 
-type ButtonComponent = <C extends React.ElementType = "button">(
-  props: PolymorphicComponentPropsWithRef<C, _ButtonProps>,
-) => React.ReactElement | null;
-
-export const Button: ButtonComponent = withPolymorphicComponent<
-  "button",
-  _ButtonProps
->(
+export const Button = withPolymorphicComponent<"button", _ButtonProps>(
   (
     {
       as,
