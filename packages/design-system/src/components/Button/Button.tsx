@@ -6,15 +6,14 @@ import { useButton } from "@/hooks/Button";
 
 const DISPLAY_NAME = "Button";
 
-interface _ButtonProps extends AtomProps {
+interface ButtonProps extends AtomProps {
   // custom own props here
   selected?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  value: string;
 }
 
-export const Button = withPolymorphicComponent<"button", _ButtonProps>(
+export const Button = withPolymorphicComponent<"button", ButtonProps>(
   (
     {
       as,

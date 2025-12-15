@@ -1,13 +1,12 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import { text, TextStylesTypes } from "./Text.css";
 
 const DISPLAY_NAME = "Text";
 
-export interface _TextProps
+export interface TextProps
   extends Pick<
     AtomProps,
     | "fontSize"
@@ -22,11 +21,7 @@ export interface _TextProps
   textStyles?: TextStylesTypes;
 }
 
-type TextComponent = <C extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithRef<C, _TextProps>,
-) => React.ReactElement | null;
-
-export const Text: TextComponent = withPolymorphicComponent<"div", _TextProps>(
+export const Text = withPolymorphicComponent<"div", TextProps>(
   (
     {
       as,

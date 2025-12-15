@@ -1,13 +1,12 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import { responsiveProperties } from "@/styles";
 
 const DISPLAY_NAME = "Flex";
 
-export interface _FlexProps
+export interface FlexProps
   extends Omit<
     AtomProps,
     | "display"
@@ -24,11 +23,7 @@ export interface _FlexProps
   gap?: keyof typeof responsiveProperties.styles.gap.values;
 }
 
-type FlexComponent = <C extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithRef<C, _FlexProps>,
-) => React.ReactElement | null;
-
-export const Flex: FlexComponent = withPolymorphicComponent<"div", _FlexProps>(
+export const Flex = withPolymorphicComponent<"div", FlexProps>(
   (
     {
       as,
