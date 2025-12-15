@@ -1,16 +1,18 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
+import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
+import { useId } from "react";
 import { useTabContext } from "@/components/Tabs/context/TabsContext";
 
-const DISPLAY_NAME = "TabList";
+const DISPLAY_NAME = "TabLabel";
 
-export interface TabListProps extends AtomProps {
+interface TabLabelProps extends AtomProps {
   // custom own props here
 }
 
-export const TabList = withPolymorphicComponent<"div", TabListProps>(
+export const TabLabel = withPolymorphicComponent<"div", TabLabelProps>(
   (
     {
       as,
@@ -21,7 +23,7 @@ export const TabList = withPolymorphicComponent<"div", TabListProps>(
     },
     ref,
   ) => {
-    const Component = (as || "div") as React.ElementType;
+    const Component = (as || "h3") as React.ElementType;
     const { baseId } = useTabContext();
 
     return (
@@ -30,8 +32,7 @@ export const TabList = withPolymorphicComponent<"div", TabListProps>(
         ref={ref}
         className={clsx(className)}
         // add props
-        role="tablist"
-        aria-labelledby={baseId}
+        id={baseId}
         {...restProps}
       >
         {children}

@@ -14,3 +14,6 @@ storybook-static/
 
 # temp
 apps/next-playground
+
+# rules
+.cursor/rules/frontend-senior.mdc

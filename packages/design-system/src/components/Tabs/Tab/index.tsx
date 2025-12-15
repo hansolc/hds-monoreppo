@@ -1,27 +1,22 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import {
   TabContext,
   type TabContextState,
 } from "@/components/Tabs/context/TabsContext";
-import { AnchorHTMLAttributes, useId, useRef } from "react";
+import { useId } from "react";
 import useControllableState from "@/hooks/use-controllable-state";
 
 const DISPLAY_NAME = "Tab";
 
-export interface _TabProps extends AtomProps, TabContextState {
+export interface TabProps extends AtomProps, TabContextState {
   // custom own props here
   defaultValue?: string;
 }
 
-type TabComponent = <C extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithRef<C, _TabProps>,
-) => React.ReactElement | null;
-
-export const Tab: TabComponent = withPolymorphicComponent<"div", _TabProps>(
+export const Tab = withPolymorphicComponent<"div", TabProps>(
   (
     {
       as,
