@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react";
 
 export interface SelectContextState {
-  value?: string;
-  onValueChange?: (value: string) => void;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
+  value: string;
+  onValueChange: (value: string) => void;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export const SelectContext = createContext<SelectContextState | null>(null);
