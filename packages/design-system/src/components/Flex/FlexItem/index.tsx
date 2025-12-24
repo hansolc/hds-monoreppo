@@ -1,13 +1,12 @@
 import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { PolymorphicComponentPropsWithRef } from "@/types/polymorphic";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
 import { unresponsiveProperties } from "@/styles/sprinkles.css";
 
 const DISPLAY_NAME = "FlexItem";
 
-export interface _FlexItemProps
+export interface FlexItemProps
   extends Omit<AtomProps, "display" | "flex" | "flexGrow" | "flexShrink"> {
   grow?: keyof typeof unresponsiveProperties.styles.flexGrow.values;
   shrink?: keyof typeof unresponsiveProperties.styles.flexShrink.values;
@@ -15,14 +14,7 @@ export interface _FlexItemProps
   basis?: string | number;
 }
 
-type FlexItemComponent = <C extends React.ElementType = "div">(
-  props: PolymorphicComponentPropsWithRef<C, _FlexItemProps>,
-) => React.ReactElement | null;
-
-export const FlexItem: FlexItemComponent = withPolymorphicComponent<
-  "div",
-  _FlexItemProps
->(
+export const FlexItem = withPolymorphicComponent<"div", FlexItemProps>(
   (
     {
       as,

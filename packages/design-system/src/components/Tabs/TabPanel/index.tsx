@@ -2,44 +2,41 @@ import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
-import { text, TextStylesTypes } from "./Text.css";
+import useTab from "@/components/Tabs/hooks/use-tabs";
 
-const DISPLAY_NAME = "Text";
+const DISPLAY_NAME = "TabPanel";
 
-export interface TextProps
-  extends Pick<
-    AtomProps,
-    | "fontSize"
-    | "fontWeight"
-    | "lineHeight"
-    | "letterSpacing"
-    | "textAlign"
-    | "whiteSpace"
-    | "textDecoration"
-    | "color"
-  > {
-  textStyles?: TextStylesTypes;
+export interface TabPanelProps extends AtomProps {
+  // custom own props here
+  value: string;
 }
 
-export const Text = withPolymorphicComponent<"div", TextProps>(
+export const TabPanel = withPolymorphicComponent<"div", TabPanelProps>(
   (
     {
       as,
       children,
       className,
       // custom own props here
-      textStyles,
+      value,
       ...restProps
     },
     ref,
   ) => {
     const Component = (as || "div") as React.ElementType;
+    const { panelId, triggerId, isSelected } = useTab(value);
 
     return (
       <Box
         as={Component}
         ref={ref}
-        className={clsx(className, text({ textStyles }))}
+        className={clsx(className)}
+        // add props
+        id={panelId}
+        aria-labelledby={triggerId}
+        role="tabpanel"
+        hidden={!isSelected}
+        tabIndex={isSelected ? 0 : -1}
         {...restProps}
       >
         {children}
