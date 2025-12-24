@@ -13,7 +13,7 @@ export interface TabListProps extends AtomProps {
   orientation?: "horizontal" | "vertical";
   // 자동 활성화 모드
   activationMode?: "automatic" | "manual";
-  // 탭 순환 여부부
+  // 탭 순환 여부
   loop?: boolean;
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
