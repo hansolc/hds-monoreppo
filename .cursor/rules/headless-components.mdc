@@ -1,0 +1,269 @@
+---
+alwaysApply: false
+---
+
+# Headless Component Development Guide
+
+This guide documents patterns and best practices for building primitive, headless UI components (Tabs, Select, Accordion, etc.) with WAI-ARIA compliance, keyboard navigation, and extensibility.
+
+## Core Principles
+
+### 1. WAI-ARIA Compliance First
+
+- Always reference official WAI-ARIA APG patterns: https://www.w3.org/WAI/ARIA/apg/patterns/
+- Implement correct roles, aria-\* attributes, and keyboard interactions before styling
+- Test accessibility with keyboard-only navigation
+
+### 2. Compound Pattern for Flexibility
+
+- Use compound components (e.g., `Tabs.Trigger`, `Tabs.List`, `Tabs.Panel`)
+- Keep each sub-component focused on a single responsibility
+- Export components using `Object.assign` for dot notation
+
+```typescript
+export const Tabs = Object.assign(TabRoot, {
+  Trigger: TabTrigger,
+  List: TabList,
+  Panel: TabPanel,
+});
+```
+
+### 3. Controlled & Uncontrolled Support
+
+- Support both modes using `useControllableState` hook
+- Use `defaultValue` for uncontrolled, `value`/`onChange` for controlled
+- Auto-select first item when no default provided (if applicable)
+
+### 4. Polymorphic Components
+
+- Use `withPolymorphicComponent` or similar factory for `as` prop
+- Support both HTML elements and custom components
+- Properly forward refs using `mergeRefs` utility
+
+## Implementation Checklist
+
+### Step 1: Research & Planning
+
+- [ ] Study WAI-ARIA pattern documentation
+- [ ] Identify required roles, attributes, and keyboard interactions
+- [ ] List all sub-components needed (triggers, panels, labels, etc.)
+- [ ] Define component API (props, compound structure)
+
+### Step 2: Context Setup
+
+- [ ] Create context for shared state (`value`, `onChange`, `baseId`)
+- [ ] Create separate context for refs if needed (for keyboard navigation)
+- [ ] Use `useState` (not `useRef`) for arrays that must trigger re-renders
+- [ ] Memoize context values to prevent unnecessary re-renders
+
+```typescript
+// ✅ Correct: useState triggers re-renders
+const [triggerRefs, setTriggerRefs] = useState<RefObject<HTMLElement>[]>([]);
+
+// ❌ Wrong: useRef changes don't trigger re-renders
+const triggerRefsRef = useRef<RefObject<HTMLElement>[]>([]);
+
+// ✅ Memoize context value
+const contextValue = useMemo(
+  () => ({ triggerRef: triggerRefs, register, unregister }),
+  [triggerRefs, register, unregister]
+);
+```
+
+### Step 3: Core Components
+
+- [ ] Implement root component with state management
+- [ ] Add controlled/uncontrolled logic with `useControllableState`
+- [ ] Generate unique IDs using `useId()` with optional `baseId` prop
+- [ ] Provide contexts to children
+
+### Step 4: WAI-ARIA Attributes
+
+- [ ] Add correct `role` attributes
+- [ ] Implement `aria-selected`, `aria-expanded`, `aria-controls`, etc.
+- [ ] Set up `aria-labelledby` / `aria-describedby` relationships
+- [ ] Use `id` matching pattern: `${baseId}-trigger-${value}`
+
+### Step 5: Keyboard Navigation
+
+- [ ] Implement roving tabindex pattern (`tabIndex={isSelected ? 0 : -1}`)
+- [ ] Handle Arrow keys (Left/Right for horizontal, Up/Down for vertical)
+- [ ] Handle Home/End keys (jump to first/last)
+- [ ] Add Tab key support (automatic via tabIndex)
+- [ ] Support `orientation`, `loop`, and `activationMode` props where applicable
+- [ ] Filter out disabled items during keyboard navigation
+
+```typescript
+// Extract keyboard logic into dedicated hook
+function useKeyboardNavigation({ orientation, loop, activationMode }) {
+  const { refs } = useContext();
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      const activeItems = refs
+        .map((ref) => ref.current)
+        .filter((el) => el && !el.hasAttribute("disabled"));
+
+      // Arrow key logic...
+      // Home/End key logic...
+
+      if (activationMode === "automatic") {
+        nextItem.click();
+      }
+    },
+    [refs, orientation, loop, activationMode]
+  );
+
+  return { handleKeyDown };
+}
+```
+
+### Step 6: Ref Management
+
+- [ ] Register refs in sub-components using `useEffect`
+- [ ] Unregister on cleanup
+- [ ] Store refs in parent via context
+- [ ] Use `mergeRefs` to combine external and internal refs
+
+```typescript
+// In sub-component
+const localRef = useRef<HTMLElement>(null);
+
+useEffect(() => {
+  if (localRef.current) {
+    registerRef(localRef);
+  }
+  return () => unregisterRef(localRef);
+}, [registerRef, unregisterRef]);
+
+return <Box ref={mergeRefs(externalRef, localRef)} />;
+```
+
+### Step 7: Testing
+
+- [ ] Create Storybook stories with interaction tests
+- [ ] Test keyboard navigation (Tab, Arrow keys, Home/End)
+- [ ] Test with disabled items
+- [ ] Test controlled vs uncontrolled modes
+- [ ] Test accessibility attributes (roles, aria-\*)
+- [ ] Verify focus management
+
+```typescript
+export const KeyboardNavigation: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const user = userEvent.setup();
+
+    const trigger = canvas.getByRole("tab", { name: "Tab 1" });
+    await user.click(trigger);
+    await expect(trigger).toHaveFocus();
+
+    await user.keyboard("{ArrowRight}");
+    const nextTrigger = canvas.getByRole("tab", { name: "Tab 2" });
+    await expect(nextTrigger).toHaveFocus();
+  },
+};
+```
+
+## Common Patterns
+
+### Auto-Select First Item
+
+```typescript
+// In root component
+useEffect(() => {
+  if (!defaultValue && !valueProp && value === "" && items.length > 0) {
+    const firstItem = items[0]?.current;
+    if (firstItem) {
+      const firstValue = firstItem.getAttribute("data-value");
+      if (firstValue) setValue(firstValue);
+    }
+  }
+}, [items.length, defaultValue, valueProp, value]);
+```
+
+### Data Attributes for Styling
+
+```typescript
+// Add data-* attributes for CSS/testing
+<Trigger
+  data-state={isOpen ? 'open' : 'closed'}
+  data-selected={isSelected}
+  data-disabled={disabled}
+/>
+```
+
+### Activation Modes
+
+- **Automatic**: Selection changes on Arrow key press (focus + activate)
+- **Manual**: Focus changes on Arrow key, Enter/Space to activate
+
+## Common Pitfalls
+
+### ❌ useRef for Arrays in Context
+
+```typescript
+// DON'T: Changes won't trigger re-renders
+const refs = useRef([]);
+<Context.Provider value={{ refs: refs.current }}>
+```
+
+### ✅ useState for Arrays in Context
+
+```typescript
+// DO: Changes trigger re-renders
+const [refs, setRefs] = useState([]);
+<Context.Provider value={{ refs }}>
+```
+
+### ❌ Forgetting to Prevent Default
+
+```typescript
+// DON'T: Arrow keys will scroll the page
+if (key === "ArrowRight") nextItem.focus();
+```
+
+### ✅ Always Prevent Default for Handled Keys
+
+```typescript
+// DO: Prevent default behavior
+if (key === "ArrowRight") {
+  event.preventDefault();
+  nextItem.focus();
+}
+```
+
+### ❌ Missing Memoization
+
+```typescript
+// DON'T: Creates new object on every render
+<Context.Provider value={{ items, register, unregister }}>
+```
+
+### ✅ Memoize Context Values
+
+```typescript
+// DO: Stable reference
+const value = useMemo(
+  () => ({ items, register, unregister }),
+  [items, register, unregister]
+);
+<Context.Provider value={value}>
+```
+
+## Iterative Development Approach
+
+1. **Start Simple**: Implement basic rendering and state management
+2. **Add ARIA**: Add roles and attributes incrementally
+3. **Keyboard Support**: Implement keyboard navigation step-by-step
+4. **Test Each Step**: Verify each feature works before moving to next
+5. **Refactor**: Extract logic into custom hooks for reusability
+6. **Document**: Update this guide with new patterns discovered
+
+## Resources
+
+- WAI-ARIA Authoring Practices: https://www.w3.org/WAI/ARIA/apg/
+- Radix UI (reference): https://www.radix-ui.com/primitives/docs/overview/introduction
+- React Aria (reference): https://react-spectrum.adobe.com/react-aria/
+- Testing Library: https://testing-library.com/docs/react-testing-library/intro/
+- Storybook Interactions: https://storybook.js.org/docs/writing-tests/interaction-testing
