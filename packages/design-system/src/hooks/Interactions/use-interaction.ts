@@ -1,9 +1,9 @@
 "use client";
 
 import { HTMLAttributes, MouseEvent, FocusEvent, useCallback } from "react";
-import useHover from "./useHover";
-import useActive from "./useActive";
-import useFocus from "./useFocus";
+import useHover from "./use-hover";
+import useActive from "./use-active";
+import useFocus from "./use-focus";
 
 export interface UseInteractionsProps
   extends Pick<

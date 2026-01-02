@@ -6,6 +6,7 @@ import {
   TextStylesTypesKeys,
 } from "@repo/design-system/components/Text";
 import { vars } from "@repo/design-system/styles";
+import { useRef } from "react";
 
 const meta: Meta<typeof Text> = {
   title: "FOUNDATION/Text",

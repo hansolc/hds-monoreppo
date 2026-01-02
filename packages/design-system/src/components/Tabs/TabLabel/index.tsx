@@ -2,45 +2,35 @@ import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
 import { Box } from "@/components/Box";
 import clsx from "clsx";
-import { useButton } from "@/hooks/Button";
+import { useTabContext } from "@/components/Tabs/context/TabsContext";
 
-const DISPLAY_NAME = "Button";
+const DISPLAY_NAME = "TabLabel";
 
-interface ButtonProps extends AtomProps {
+export interface TabLabelProps extends AtomProps {
   // custom own props here
-  selected?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
 }
 
-export const Button = withPolymorphicComponent<"button", ButtonProps>(
+export const TabLabel = withPolymorphicComponent<"div", TabLabelProps>(
   (
     {
       as,
       children,
       className,
       // custom own props here
-      selected,
-      disabled,
-      loading,
       ...restProps
     },
     ref,
   ) => {
-    const { baseButtonProps } = useButton({
-      as,
-      role: "button",
-      selected,
-      disabled,
-      loading,
-      ...restProps,
-    });
+    const Component = (as || "h3") as React.ElementType;
+    const { baseId } = useTabContext();
 
     return (
       <Box
+        as={Component}
         ref={ref}
         className={clsx(className)}
-        {...baseButtonProps}
+        // add props
+        id={baseId}
         {...restProps}
       >
         {children}

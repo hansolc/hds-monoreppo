@@ -1,1 +1,1 @@
-export { default as useButton } from "./useButton";
+export { default as useButton } from "./use-button";

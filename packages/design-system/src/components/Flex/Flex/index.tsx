@@ -1,14 +1,12 @@
+import { withPolymorphicComponent } from "@/factory/with-polymorphic-component";
 import { AtomProps } from "@/types/atoms";
-import { ElementType, forwardRef } from "react";
 import { Box } from "@/components/Box";
+import clsx from "clsx";
 import { responsiveProperties } from "@/styles";
-import {
-  PolymorphicComponent,
-  PolymorphicComponentProps,
-  PolymorphicRef,
-} from "@/types/polymorphic";
 
-export interface FlexBaseProps
+const DISPLAY_NAME = "Flex";
+
+export interface FlexProps
   extends Omit<
     AtomProps,
     | "display"
@@ -25,43 +23,41 @@ export interface FlexBaseProps
   gap?: keyof typeof responsiveProperties.styles.gap.values;
 }
 
-export type FlexProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  FlexBaseProps
->;
-
-const FlexImplementation = forwardRef(
-  <C extends ElementType = "div">(
+export const Flex = withPolymorphicComponent<"div", FlexProps>(
+  (
     {
-      children,
       as,
-      direction = "row",
-      gap = "small",
+      children,
+      className,
+      // custom own props here
       wrap,
+      direction,
       align,
       justify,
-      ...props
-    }: FlexProps<C>,
-    ref?: PolymorphicRef<C>["ref"],
+      gap,
+      ...restProps
+    },
+    ref,
   ) => {
+    const Component = (as || "div") as React.ElementType;
+
     return (
       <Box
-        as={as || "div"}
+        as={Component}
         ref={ref}
+        className={clsx(className)}
+        // add props
         display="flex"
         flexWrap={wrap}
         flexDirection={direction}
         alignItems={align}
         justifyContent={justify}
         gap={gap}
-        {...props}
+        {...restProps}
       >
         {children}
       </Box>
     );
   },
+  DISPLAY_NAME,
 );
-
-FlexImplementation.displayName = "Flex";
-
-export default FlexImplementation as PolymorphicComponent<"div", FlexBaseProps>;
