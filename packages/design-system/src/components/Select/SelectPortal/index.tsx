@@ -33,20 +33,8 @@ export interface SelectPortalProps {
   children: ReactNode;
   container?: HTMLElement | null;
   closeOnOutsideClick?: boolean;
-  /**
-   * Content의 위치
-   * @default "bottom-start"
-   */
   placement?: SelectPlacement;
-  /**
-   * Trigger와의 간격 (px)
-   * @default 4
-   */
   offset?: number;
-  /**
-   * Trigger와 동일한 너비로 설정
-   * @default true
-   */
   sameWidth?: boolean;
 }
 
@@ -83,7 +71,7 @@ export const SelectPortal = ({
     ].filter(Boolean),
   });
 
-  // ✨ Trigger와 Portal ref를 즉시 연결
+  // Trigger와 Portal ref를 즉시 연결
   useEffect(() => {
     if (open && triggerRef?.current) {
       refs.setReference(triggerRef.current);
@@ -93,7 +81,7 @@ export const SelectPortal = ({
   useEffect(() => {
     if (open && portalRef.current) {
       refs.setFloating(portalRef.current);
-      // ✨ ref 설정 후 즉시 위치 업데이트
+      // ref 설정 후 즉시 위치 업데이트
       update?.();
     }
   }, [open, refs, update]);
