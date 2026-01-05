@@ -39,9 +39,11 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "clean": "rm -rf dist .turbo node_modules",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --max-warnings 0"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@vanilla-extract/css": "^1.16.1",
     "@vanilla-extract/sprinkles": "^1.6.3",
