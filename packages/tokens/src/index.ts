@@ -2,7 +2,12 @@
 export * from "./primitives";
 
 // Theme system (createThemeContract + themes)
-export { themeContract, vars, lightTheme, darkTheme } from "./theme";
+export {
+  themeContract,
+  vars,
+  nextPlaygroundDarkTheme,
+  nextPlaygroundLightTheme,
+} from "./theme";
 
 // Sprinkles utility
 export { sprinkles, type Sprinkles } from "./sprinkles/sprinkles.css";

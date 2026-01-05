@@ -1,7 +1,7 @@
 import { createTheme } from "@vanilla-extract/css";
-import { themeContract } from "./contract.css";
+import { themeContract } from "@/theme/contract.css";
 import {
-  darkColors,
+  lightColors,
   fontSize,
   lineHeight,
   fontWeight,
@@ -9,10 +9,10 @@ import {
   spacing,
   elevation,
   shape,
-} from "../primitives";
+} from "@/primitives";
 
-export const darkTheme = createTheme(themeContract, {
-  color: darkColors,
+export const lightTheme = createTheme(themeContract, {
+  color: lightColors,
   typography: {
     fontSize,
     lineHeight,

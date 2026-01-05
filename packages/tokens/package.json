@@ -29,11 +29,8 @@
       "types": "./dist/reset/reset.css.d.ts",
       "import": "./dist/reset/reset.css.js"
     },
-    "./provider/ColorThemeProvider": {
-      "types": "./dist/provider/ColorThemeProvider.d.ts",
-      "import": "./dist/provider/ColorThemeProvider.js"
-    },
-    "./reset.css": "./dist/reset/reset.css"
+    "./reset.css": "./dist/reset/reset.css",
+    "./theme/global.css": "./dist/theme/index.css"
   },
   "files": [
     "dist"
