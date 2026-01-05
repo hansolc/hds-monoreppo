@@ -1,0 +1,54 @@
+{
+  "name": "@repo/tokens",
+  "version": "1.0.0",
+  "description": "Material Design 3 design tokens and theming system",
+  "type": "module",
+  "sideEffects": [
+    "*.css.ts",
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./primitives": {
+      "types": "./dist/primitives/index.d.ts",
+      "import": "./dist/primitives/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js"
+    },
+    "./theme.css": "./dist/theme/index.css",
+    "./sprinkles": {
+      "types": "./dist/sprinkles/sprinkles.css.d.ts",
+      "import": "./dist/sprinkles/sprinkles.css.js"
+    },
+    "./reset": {
+      "types": "./dist/reset/reset.css.d.ts",
+      "import": "./dist/reset/reset.css.js"
+    },
+    "./reset.css": "./dist/reset/reset.css",
+    "./theme/global.css": "./dist/theme/index.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist .turbo node_modules",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src --max-warnings 0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@vanilla-extract/css": "^1.16.1",
+    "@vanilla-extract/sprinkles": "^1.6.3",
+    "@vanilla-extract/esbuild-plugin": "^2.3.12",
+    "tsup": "^8.3.5",
+    "typescript": "^5.9.3"
+  }
+}
