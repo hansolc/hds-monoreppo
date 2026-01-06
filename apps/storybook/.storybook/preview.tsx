@@ -1,15 +1,21 @@
 import type { Preview } from "@storybook/react";
 import { withThemeByClassName } from "@storybook/addon-themes";
-import { lightThemeClass, darkThemeClass } from "@repo/design-system/styles";
+import {
+  nextPlaygroundLightTheme,
+  nextPlaygroundDarkTheme,
+} from "@repo/tokens/theme";
 import "@repo/design-system/theme.css";
 import "@repo/design-system/components.css";
+
+import "@repo/base-ui-design-system/index.css";
+import "@repo/tokens/index.css";
 
 const preview: Preview = {
   decorators: [
     withThemeByClassName({
       themes: {
-        light: lightThemeClass,
-        dark: darkThemeClass,
+        light: nextPlaygroundLightTheme,
+        nextPlaygroundDarkTheme,
       },
       defaultTheme: "light",
     }),

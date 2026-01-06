@@ -30,7 +30,8 @@
       "import": "./dist/reset/reset.css.js"
     },
     "./reset.css": "./dist/reset/reset.css",
-    "./theme/global.css": "./dist/theme/index.css"
+    "./theme/global.css": "./dist/theme/index.css",
+    "./index.css": "./dist/index.css"
   },
   "files": [
     "dist"

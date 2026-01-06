@@ -10,7 +10,15 @@ const responsiveProperties = defineProperties({
   defaultCondition: "mobile",
   responsiveArray: ["mobile", "tablet", "desktop"],
   properties: {
-    display: ["none", "block", "inline", "inline-block", "flex", "grid"],
+    display: [
+      "none",
+      "block",
+      "inline",
+      "inline-block",
+      "flex",
+      "grid",
+      "inline-flex",
+    ],
     flexDirection: ["row", "column", "row-reverse", "column-reverse"],
     flexWrap: ["nowrap", "wrap", "wrap-reverse"],
     alignItems: ["flex-start", "center", "flex-end", "stretch", "baseline"],

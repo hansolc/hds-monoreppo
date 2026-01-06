@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@repo/design-system": "workspace:*",
+    "@repo/base-ui-design-system": "workspace:*",
+    "@repo/tokens": "workspace:*",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
