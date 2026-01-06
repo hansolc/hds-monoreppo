@@ -1,28 +1,35 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   Button,
-  buttonVariantsKeys,
+  buttonColorKeys,
   buttonSizeKeys,
+  buttonShapeKeys,
 } from "@repo/base-ui-design-system/Button";
 // import { expect, userEvent, within } from '@storybook/test'
 
 const meta = {
   title: "md3/Button",
   component: Button,
-  subcomponents: {},
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {
     children: { control: "text" },
-    variant: {
-      options: buttonVariantsKeys,
+    color: {
+      options: buttonColorKeys,
       control: "radio",
+      table: { defaultValue: { summary: "filled" } },
     },
     size: {
       options: buttonSizeKeys,
       control: "radio",
+      table: { defaultValue: { summary: "s" } },
+    },
+    shape: {
+      options: buttonShapeKeys,
+      control: "radio",
+      table: { defaultValue: { summary: "round" } },
     },
   },
 } satisfies Meta<typeof Button>;
@@ -33,8 +40,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: "Button",
+    color: "filled",
+    size: "s",
+    shape: "round",
     disabled: false,
-    variant: "elevated",
-    size: "xs",
   },
 };

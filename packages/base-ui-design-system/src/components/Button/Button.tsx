@@ -13,11 +13,11 @@ export interface ButtonProps extends ButtonState, ButtonStyleVariants {
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant, size, className, ...props }, ref) => {
+  ({ children, color, size, shape, className, ...props }, ref) => {
     return (
       <BaseButton
         ref={ref}
-        className={clsx(button({ variant, size }), className)}
+        className={clsx(button({ color, size, shape }), className)}
         {...props}
       >
         {children}
