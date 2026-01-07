@@ -33,3 +33,4 @@ const Icon = ({
 
 export default Icon;
 export { Icons as IconKeys };
+export type { IconType };

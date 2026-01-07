@@ -200,6 +200,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.0.0
         version: 1.0.0(@types/react@19.2.2)(react-dom@19.2.0)(react@19.2.0)
+      '@repo/design-system':
+        specifier: workspace:*
+        version: link:../design-system
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

@@ -5,6 +5,7 @@ import {
   buttonSizeKeys,
   buttonShapeKeys,
 } from "@repo/base-ui-design-system/Button";
+import { IconKeys } from "@repo/design-system/components/Icon";
 // import { expect, userEvent, within } from '@storybook/test'
 
 const meta = {
@@ -31,6 +32,14 @@ const meta = {
       control: "radio",
       table: { defaultValue: { summary: "round" } },
     },
+    startIcon: {
+      options: Object.keys(IconKeys),
+      control: "select",
+    },
+    endIcon: {
+      options: Object.keys(IconKeys),
+      control: "select",
+    },
   },
 } satisfies Meta<typeof Button>;
 
@@ -44,5 +53,7 @@ export const Default: Story = {
     size: "s",
     shape: "round",
     disabled: false,
+    startIcon: "Add",
+    endIcon: "Add",
   },
 };
