@@ -13,6 +13,8 @@ export const button = recipe({
       cursor: "pointer",
     }),
     {
+      outline: "none",
+      transition: "border-radius 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
       selectors: {
         "&:disabled": {
           backgroundColor: `rgba(${hexToRgb(vars.color.onSurface)}, 0.1)`,
@@ -74,6 +76,22 @@ export const button = recipe({
           backgroundColor: "secondaryContainer",
           color: "onSecondaryContainer",
         }),
+        {
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "secondaryContainer",
+              opacity: 0.08,
+            },
+            focus: {
+              bg: "secondaryContainer",
+              opacity: 0.1,
+            },
+            active: {
+              bg: "secondaryContainer",
+              opacity: 0.12,
+            },
+          }),
+        },
       ],
       outlined: [
         sprinkles({
@@ -82,12 +100,46 @@ export const button = recipe({
         }),
         {
           border: "1px solid",
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "onSurfaceVariant",
+              opacity: 0.08,
+              borderColor: "outlineVariant",
+            },
+            focus: {
+              bg: "onSurfaceVariant",
+              opacity: 0.1,
+              borderColor: "outlineVariant",
+            },
+            active: {
+              bg: "onSurfaceVariant",
+              opacity: 0.12,
+              borderColor: "outlineVariant",
+            },
+          }),
         },
       ],
       text: [
         sprinkles({
           color: "primary",
         }),
+        {
+          backgroundColor: "transparent",
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "primary",
+              opacity: 0.08,
+            },
+            focus: {
+              bg: "primary",
+              opacity: 0.1,
+            },
+            active: {
+              bg: "primary",
+              opacity: 0.12,
+            },
+          }),
+        },
       ],
     },
     size: {

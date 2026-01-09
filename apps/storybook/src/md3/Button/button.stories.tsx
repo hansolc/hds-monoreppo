@@ -6,7 +6,7 @@ import {
   buttonShapeKeys,
 } from "@repo/base-ui-design-system/Button";
 import { IconKeys } from "@repo/design-system/components/Icon";
-// import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from "@storybook/test";
 
 const meta = {
   title: "md3/Button",
@@ -40,12 +40,21 @@ const meta = {
       options: Object.keys(IconKeys),
       control: "select",
     },
+    toggle: {
+      control: "boolean",
+      table: { defaultValue: { summary: "false" } },
+    },
+    render: {
+      description: "Render the button as a custom element",
+      table: { defaultValue: { summary: "<button/>" } },
+    },
   },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// rendering
 export const Default: Story = {
   args: {
     children: "Button",
@@ -55,5 +64,41 @@ export const Default: Story = {
     disabled: false,
     startIcon: "Add",
     endIcon: "Add",
+    toggle: false,
+    render: <button />,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const btn = canvas.getByRole("button", { name: "Button" });
+    await expect(btn).toBeInTheDocument();
+    await expect(btn).toBeEnabled();
+  },
+};
+
+// disabled
+export const Disabled: Story = {
+  args: { ...Default.args, disabled: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const btn = canvas.getByRole("button", { name: "Button" });
+
+    await expect(btn).toBeDisabled();
+  },
+};
+
+// Toggle 기능
+export const Toggle: Story = {
+  args: { ...Default.args, toggle: true },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const btn = canvas.getByRole("button", { name: "Button" });
+
+    await expect(btn).toHaveAttribute("aria-pressed", "false");
+    await expect(btn).toHaveAttribute("data-pressed", "false");
+
+    await userEvent.click(btn);
+    await expect(btn).toHaveAttribute("aria-pressed", "true");
+    await expect(btn).toHaveAttribute("data-pressed", "true");
   },
 };
