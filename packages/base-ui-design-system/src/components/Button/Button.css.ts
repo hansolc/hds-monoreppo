@@ -2,6 +2,7 @@ import { recipe, RecipeVariants } from "@vanilla-extract/recipes";
 import { typeScale, sprinkles, vars } from "@repo/tokens";
 import { makeInteractiveButtonStyles } from "@/utils/button";
 import { hexToRgb } from "@/utils/color";
+import { styleVariants } from "@vanilla-extract/css";
 
 export const button = recipe({
   base: [
@@ -12,6 +13,8 @@ export const button = recipe({
       cursor: "pointer",
     }),
     {
+      outline: "none",
+      transition: "border-radius 180ms cubic-bezier(0.2, 0.8, 0.2, 1)",
       selectors: {
         "&:disabled": {
           backgroundColor: `rgba(${hexToRgb(vars.color.onSurface)}, 0.1)`,
@@ -51,12 +54,44 @@ export const button = recipe({
           backgroundColor: "primary",
           color: "onPrimary",
         }),
+        {
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "primary",
+              opacity: 0.08,
+            },
+            focus: {
+              bg: "primary",
+              opacity: 0.1,
+            },
+            active: {
+              bg: "primary",
+              opacity: 0.12,
+            },
+          }),
+        },
       ],
       tonal: [
         sprinkles({
           backgroundColor: "secondaryContainer",
           color: "onSecondaryContainer",
         }),
+        {
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "secondaryContainer",
+              opacity: 0.08,
+            },
+            focus: {
+              bg: "secondaryContainer",
+              opacity: 0.1,
+            },
+            active: {
+              bg: "secondaryContainer",
+              opacity: 0.12,
+            },
+          }),
+        },
       ],
       outlined: [
         sprinkles({
@@ -65,40 +100,89 @@ export const button = recipe({
         }),
         {
           border: "1px solid",
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "onSurfaceVariant",
+              opacity: 0.08,
+              borderColor: "outlineVariant",
+            },
+            focus: {
+              bg: "onSurfaceVariant",
+              opacity: 0.1,
+              borderColor: "outlineVariant",
+            },
+            active: {
+              bg: "onSurfaceVariant",
+              opacity: 0.12,
+              borderColor: "outlineVariant",
+            },
+          }),
         },
       ],
       text: [
         sprinkles({
           color: "primary",
         }),
+        {
+          backgroundColor: "transparent",
+          ...makeInteractiveButtonStyles({
+            hover: {
+              bg: "primary",
+              opacity: 0.08,
+            },
+            focus: {
+              bg: "primary",
+              opacity: 0.1,
+            },
+            active: {
+              bg: "primary",
+              opacity: 0.12,
+            },
+          }),
+        },
       ],
     },
     size: {
       xs: [
+        sprinkles({
+          gap: 1,
+        }),
         {
           ...typeScale.labelLarge,
           padding: "12px 6px",
         },
       ],
       s: [
+        sprinkles({
+          gap: 2,
+        }),
         {
           ...typeScale.labelLarge,
           padding: "16px 10px",
         },
       ],
       m: [
+        sprinkles({
+          gap: 2,
+        }),
         {
           ...typeScale.titleMedium,
           padding: "24px 16px",
         },
       ],
       l: [
+        sprinkles({
+          gap: 3,
+        }),
         {
           ...typeScale.headlineSmall,
           padding: "48px 32px",
         },
       ],
       xl: [
+        sprinkles({
+          gap: 4,
+        }),
         {
           ...typeScale.headlineLarge,
           padding: "64px 48px",
@@ -115,6 +199,14 @@ export const button = recipe({
     shape: "round",
     color: "filled",
   },
+});
+
+export const buttonIcon = styleVariants({
+  xs: { width: 20, height: 20 },
+  s: { width: 20, height: 20 },
+  m: { width: 24, height: 24 },
+  l: { width: 32, height: 32 },
+  xl: { width: 40, height: 40 },
 });
 
 export type ButtonStyleVariants = NonNullable<RecipeVariants<typeof button>>;
