@@ -15,15 +15,20 @@ export interface ButtonProps
   extends ButtonState,
     ButtonStyleVariants,
     UseToggleButtonProps {
-  children: React.ReactNode;
-  className?: string;
   // leading icon
   startIcon?: IconType;
   // trailing icon
   endIcon?: IconType;
 }
 
-const Button = forwardRef<HTMLButtonElement, BaseButtonProps & ButtonProps>(
+const Button = forwardRef<
+  HTMLButtonElement,
+  Pick<
+    BaseButtonProps,
+    "onClick" | "style" | "render" | "className" | "children"
+  > &
+    ButtonProps
+>(
   (
     {
       children,
