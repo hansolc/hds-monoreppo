@@ -17,6 +17,11 @@
       "types": "./dist/Button/index.d.ts",
       "import": "./dist/Button/index.js",
       "default": "./dist/Button/index.js"
+    },
+    "./Navigationbar": {
+      "types": "./dist/Navigationbar/index.d.ts",
+      "import": "./dist/Navigationbar/index.js",
+      "default": "./dist/Navigationbar/index.js"
     }
   },
   "files": [
