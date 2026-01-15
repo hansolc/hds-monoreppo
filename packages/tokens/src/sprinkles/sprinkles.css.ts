@@ -3,9 +3,13 @@ import { themeContract } from "../theme/contract.css";
 
 const responsiveProperties = defineProperties({
   conditions: {
-    mobile: {},
-    tablet: { "@media": "screen and (min-width: 768px)" },
-    desktop: { "@media": "screen and (min-width: 1024px)" },
+    // width foundation
+    compact: {},
+    medium: { "@media": "screen and (min-width: 600px)" },
+    expanded: { "@media": "screen and (min-width: 840px)" },
+    large: { "@media": "screen and (min-width: 1200px)" },
+    xlarge: { "@media": "screen and (min-width: 1600px)" },
+    // interactions
     default: {},
     hover: { selector: "&:not(:disabled):hover" },
     focus: { selector: "&:not(:disabled):focus" },
@@ -14,8 +18,8 @@ const responsiveProperties = defineProperties({
     active: { selector: "&:not(:disabled):active" },
     disabled: { selector: "&:disabled" },
   },
-  defaultCondition: "mobile",
-  responsiveArray: ["mobile", "tablet", "desktop"],
+  defaultCondition: "compact",
+  responsiveArray: ["compact", "medium", "expanded", "large", "xlarge"],
   properties: {
     display: [
       "none",
