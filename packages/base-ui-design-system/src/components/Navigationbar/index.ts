@@ -1,12 +1,9 @@
 "use client";
 
-import {
-  NavigationBar as BaseNavigationBar,
-  Trigger as Link,
-} from "./Navigationbar";
+import { NavigationBar as BaseNavigationBar, Trigger } from "./Navigationbar";
 
 const Navigationbar = Object.assign(BaseNavigationBar, {
-  Link,
+  Trigger,
 });
 
-export { Navigationbar, Link };
+export { Navigationbar, Trigger };

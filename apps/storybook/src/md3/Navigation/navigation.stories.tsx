@@ -1,12 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Navigationbar, Link } from "@repo/base-ui-design-system/Navigationbar";
+import {
+  Navigationbar,
+  Trigger,
+} from "@repo/base-ui-design-system/Navigationbar";
 import { expect, userEvent, within } from "@storybook/test";
 
 const meta = {
   title: "md3/Navigationbar",
   component: Navigationbar,
   subcomponents: {
-    Link,
+    Trigger,
   },
   parameters: {
     layout: "centered",
@@ -24,9 +27,9 @@ export const Default: Story = {
   args: {},
   render: () => (
     <Navigationbar>
-      <Link>link1</Link>
-      <Link>link2</Link>
-      <Link>link3</Link>
+      <Trigger render={<a href="#" />} icon="Star" label="link1" />
+      <Trigger render={<a href="#" />} icon="Star" label="link2" />
+      <Trigger render={<a href="#" />} icon="Star" label="link3" />
     </Navigationbar>
   ),
   play: async ({ canvasElement }) => {

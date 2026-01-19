@@ -5,10 +5,14 @@ import {
 import { Toggle, type ToggleProps } from "@base-ui/react/toggle";
 import { forwardRef } from "react";
 import clsx from "clsx";
-import { navigationbar } from "./Navigationbar.css";
-import { CommonComponentProps, PolymorphicRenderProps } from "@/types";
-import { mergeProps, useRender } from "@base-ui/react";
-import Icon from "@repo/design-system/components/Icon";
+import {
+  navigationbar,
+  navigationbarIcon,
+  navigationbarLink,
+} from "./Navigationbar.css";
+import { CommonComponentProps } from "@/types";
+import Icon, { IconType } from "@repo/design-system/components/Icon";
+import { Text } from "@repo/design-system/components/Text";
 
 /**
  * @Anatomy
@@ -21,7 +25,11 @@ import Icon from "@repo/design-system/components/Icon";
  */
 
 export interface NavigationbarProps
-  extends Pick<ToggleGroupProps, CommonComponentProps> {}
+  extends Pick<ToggleGroupProps, CommonComponentProps> {
+  value?: ToggleGroupProps["value"];
+  onValueChange?: ToggleGroupProps["onValueChange"];
+  defaultValue?: ToggleGroupProps["defaultValue"];
+}
 
 const NavigationBar = forwardRef<HTMLDivElement, NavigationbarProps>(
   (props, ref) => {
@@ -42,30 +50,32 @@ const NavigationBar = forwardRef<HTMLDivElement, NavigationbarProps>(
 export interface NavigationbarToggleProps
   extends Pick<ToggleProps, CommonComponentProps> {
   render: ToggleProps["render"];
+  icon: IconType;
+  label: string;
+  value?: ToggleProps["value"];
 }
 
 const Trigger = forwardRef<HTMLButtonElement, NavigationbarToggleProps>(
   (props, ref) => {
-    const { children, className, render, ...rest } = props;
+    const { children, className, render, icon, label, ...rest } = props;
+
     return (
-      <Toggle ref={ref} className={clsx(className)} render={render} {...rest}>
-        <Icon icon="Star" />
-        {children}
+      <Toggle
+        ref={ref}
+        className={clsx(navigationbarLink, className)}
+        render={render}
+        {...rest}
+      >
+        <Icon
+          icon={icon}
+          width={24}
+          height={24}
+          className={navigationbarIcon}
+        />
+        <Text textStyles="labelMedium">{label}</Text>
       </Toggle>
     );
   },
 );
-
-interface NavigationLinkProps extends useRender.ComponentProps<"button"> {}
-
-const NavigationLink = (props: NavigationLinkProps) => {
-  const { render, ...otherProps } = props;
-
-  const element = useRender({
-    defaultTagName: "button",
-    render,
-    props: mergeProps<"button">({ className: "" }, otherProps),
-  });
-};
 
 export { NavigationBar, Trigger };
