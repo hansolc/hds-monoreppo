@@ -4,6 +4,7 @@ import {
   nextPlaygroundLightTheme,
   nextPlaygroundDarkTheme,
 } from "@repo/tokens/theme";
+import { initialize, mswLoader } from "msw-storybook-addon";
 import "@repo/design-system/theme.css";
 import "@repo/design-system/components.css";
 
@@ -11,6 +12,10 @@ import "@repo/base-ui-design-system/index.css";
 import "@repo/tokens/index.css";
 
 const preview: Preview = {
+  beforeAll: async () => {
+    initialize();
+  },
+  loaders: mswLoader,
   decorators: [
     withThemeByClassName({
       themes: {
