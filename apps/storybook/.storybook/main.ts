@@ -26,7 +26,7 @@ const config: StorybookConfig = {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
-
+  staticDirs: ["../public"],
   async viteFinal(config) {
     return {
       ...config,

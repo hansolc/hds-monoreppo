@@ -6,12 +6,35 @@ import {
 } from "@repo/tokens/theme";
 import "@repo/design-system/theme.css";
 import "@repo/design-system/components.css";
+import { initialize, mswLoader } from "msw-storybook-addon";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "@repo/base-ui-design-system/index.css";
 import "@repo/tokens/index.css";
 
+initialize();
+
+const createQueryClient = () => {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  });
+};
+
 const preview: Preview = {
+  loaders: [mswLoader],
   decorators: [
+    (Story) => {
+      const queryClient = createQueryClient();
+      return (
+        <QueryClientProvider client={queryClient}>
+          <Story />
+        </QueryClientProvider>
+      );
+    },
     withThemeByClassName({
       themes: {
         light: nextPlaygroundLightTheme,
