@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Button } from "@repo/design-system";
 import { ALL_SEMANTIC_ELEMENTS } from "../../constant";

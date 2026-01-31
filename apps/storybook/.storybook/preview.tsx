@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { withThemeByClassName } from "@storybook/addon-themes";
 import {
   nextPlaygroundLightTheme,
@@ -26,6 +26,7 @@ const createQueryClient = () => {
 
 const preview: Preview = {
   loaders: [mswLoader],
+
   decorators: [
     (Story) => {
       const queryClient = createQueryClient();
@@ -43,6 +44,8 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
   ],
+
+  tags: ["autodocs"],
 };
 
 const initTheme = () => {

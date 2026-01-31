@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Button,
   buttonColorKeys,
@@ -6,7 +6,7 @@ import {
   buttonShapeKeys,
 } from "@repo/base-ui-design-system/Button";
 import { IconKeys } from "@repo/design-system/components/Icon";
-import { expect, userEvent, within } from "@storybook/test";
+import { expect, userEvent, within } from "storybook/test";
 
 const meta = {
   title: "md3/Button",

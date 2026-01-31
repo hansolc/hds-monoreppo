@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Flex } from "@repo/design-system/components/Flex";
 import { ALL_SEMANTIC_ELEMENTS } from "../../constant";
