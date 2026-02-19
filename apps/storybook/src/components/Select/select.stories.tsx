@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Flex,
   Select,
@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/design-system";
-import { expect, screen, userEvent, waitFor, within } from "@storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
 const meta = {
   title: "Components/Select",

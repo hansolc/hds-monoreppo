@@ -11,22 +11,23 @@ function getAbsolutePath(value: string) {
 }
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+
   addons: [
     getAbsolutePath("@storybook/addon-onboarding"),
     getAbsolutePath("@storybook/addon-links"),
-    getAbsolutePath("@storybook/addon-essentials"),
-    getAbsolutePath("@chromatic-com/storybook"),
-    getAbsolutePath("@storybook/experimental-addon-test"),
-    getAbsolutePath("storybook-addon-root-attributes"),
+    getAbsolutePath("@storybook/addon-vitest"),
     getAbsolutePath("@storybook/addon-a11y"),
     getAbsolutePath("storybook-addon-pseudo-states"),
     getAbsolutePath("@storybook/addon-themes"),
   ],
+
   framework: {
     name: getAbsolutePath("@storybook/react-vite"),
     options: {},
   },
+
   staticDirs: ["../public"],
+
   async viteFinal(config) {
     return {
       ...config,
@@ -34,9 +35,6 @@ const config: StorybookConfig = {
       resolve: {},
       plugins: [...(config.plugins || []), vanillaExtractPlugin()],
     };
-  },
-  docs: {
-    autodocs: true,
   },
 };
 export default config;
