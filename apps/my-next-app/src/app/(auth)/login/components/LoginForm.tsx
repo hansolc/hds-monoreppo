@@ -6,9 +6,12 @@ import useLogin from "../hooks/useLogin";
 import { LoginFormType, loginSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AppError } from "@/types/error";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/constants/route";
 
 const LoginForm = () => {
   const { mutateAsync: login } = useLogin();
+  const router = useRouter();
   const {
     handleSubmit,
     control,
@@ -25,6 +28,9 @@ const LoginForm = () => {
 
   const onSubmit = async (values: LoginFormType) => {
     await login(values, {
+      onSuccess: () => {
+        router.push(ROUTES.PRODUCTS);
+      },
       onError: (error) => {
         if (error instanceof AppError && error.isExpected) {
           setError("root", { message: error.message });

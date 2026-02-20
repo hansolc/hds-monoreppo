@@ -1,6 +1,10 @@
 import { Box, Card, CardContent, Container } from "@mui/material";
 
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <Box
       component={"main"}
@@ -13,6 +17,4 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       </Container>
     </Box>
   );
-};
-
-export default AuthLayout;
+}

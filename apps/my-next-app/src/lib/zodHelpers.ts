@@ -9,9 +9,10 @@ export function validateResponse<T>(schema: ZodSchema<T>, data: unknown): T {
   const result = schema.safeParse(data);
 
   if (!result.success) {
+    console.error(result.error?.message);
     throw new AppError(
       "VALIDATION_ERROR",
-      "서버 응답 형식이 올바르지 않습니다.",
+      `서버 응답 형식이 올바르지 않습니다.`,
     );
   }
 

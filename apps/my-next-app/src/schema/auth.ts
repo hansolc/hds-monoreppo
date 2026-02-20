@@ -17,7 +17,7 @@ export const loginResponseSchema = z.object({
   email: z.email(),
   firstName: z.string(),
   lastName: z.string(),
-  gender: z.enum(["MALE", "FEMALE"]),
+  gender: z.enum(["male", "female"]),
   image: z.string(),
   accessToken: z.string(),
   refreshToken: z.string(),
