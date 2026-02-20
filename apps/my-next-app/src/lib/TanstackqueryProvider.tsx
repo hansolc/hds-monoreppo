@@ -10,7 +10,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 // import { ApiError } from "../axios/errorHandler";
-// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useToastStore } from "@/store/toast";
 
 function makeQueryClient() {
@@ -82,7 +82,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
