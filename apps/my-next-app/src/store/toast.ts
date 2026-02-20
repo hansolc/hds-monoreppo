@@ -15,6 +15,7 @@ interface ToastActions {
     showError: (message: string) => void;
     showWarning: (message: string) => void;
     showInfo: (message: string) => void;
+    closeToast: () => void;
   };
 }
 
@@ -41,6 +42,9 @@ export const useToastStore = create<ToastStore & ToastActions>((set) => ({
     },
     showInfo: (message) => {
       set({ open: true, message, severity: "info" });
+    },
+    closeToast: () => {
+      set({ open: false });
     },
   },
 }));

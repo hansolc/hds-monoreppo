@@ -10,7 +10,7 @@ export const loginFn = async (formData: LoginFormType) => {
   } catch (error) {
     if (error instanceof AppError) {
       if (error.message === "Invalid credentials") {
-        throw new AppError(400, "등록되지 않은 사용자 입니다.");
+        throw new AppError(400, "등록되지 않은 사용자 입니다.", true);
       }
       throw error;
     }

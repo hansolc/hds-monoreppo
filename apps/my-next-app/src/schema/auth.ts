@@ -20,7 +20,7 @@ export const loginResponseSchema = z.object({
   gender: z.enum(["MALE", "FEMALE"]),
   image: z.string(),
   accessToken: z.string(),
-  refreshToke: z.string(),
+  refreshToken: z.string(),
 });
 
 export type LoginFormType = z.infer<typeof loginSchema>;

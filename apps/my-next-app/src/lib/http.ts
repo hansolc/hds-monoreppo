@@ -12,30 +12,24 @@ http.interceptors.response.use(
       const status = error.response?.status;
       const message = error.response?.data?.message || error.message;
 
-      // if (!error.response) {
-      //   return Promise.reject(
-      //     new AppError("UNKNOWN_ERROR", "알 수 없는 오류가 발생했습니다.")
-      //   );
-      // }
-
       // 서버 에러
       if (status && status >= 500) {
         return Promise.reject(
-          new AppError(status, "서버 에러가 발생했습니다."),
+          new AppError(status, "서버 에러가 발생했습니다.", false),
         );
       }
 
       if (status && status < 500) {
-        return Promise.reject(new AppError(status, message));
+        return Promise.reject(new AppError(status, message, true));
       }
 
       return Promise.reject(
-        new AppError("UNKNOWN_ERROR", "알 수 없는 오류가 발생했습니다."),
+        new AppError("UNKNOWN_ERROR", "알 수 없는 오류가 발생했습니다.", false),
       );
     }
 
     return Promise.reject(
-      new AppError("UNKNOWN_ERROR", "알 수 없는 오류가 발생했습니다."),
+      new AppError("UNKNOWN_ERROR", "알 수 없는 오류가 발생했습니다.", false),
     );
   },
 );

@@ -1,17 +1,36 @@
 // In Next.js, this file would be called: app/providers.tsx
 "use client";
 
+import { AppError } from "@/types/error";
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   isServer,
+  MutationCache,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 // import { ApiError } from "../axios/errorHandler";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useToastStore } from "@/store/toast";
 
 function makeQueryClient() {
+  const { actions } = useToastStore();
   return new QueryClient({
+    mutationCache: new MutationCache({
+      onError: (error, variables, context, mutation) => {
+        const skipGlobalError = mutation.meta?.skipGlobalError;
+        if (skipGlobalError) return;
+
+        if (error instanceof AppError) {
+          if (
+            error.code === "VALIDATION_ERROR" ||
+            error.code === "UNKNOWN_ERROR"
+          ) {
+            actions.showError(error.message);
+          }
+        }
+      },
+    }),
     defaultOptions: {
       queries: {
         // With SSR, we usually want to set some default staleTime
@@ -34,27 +53,6 @@ function makeQueryClient() {
         retry: 0,
       },
     },
-    // 전역 에러 처리 - meta.showGlobalError가 true인 경우만
-    // queryCache: new QueryCache({
-    //   onError: (error, query) => {
-    //     // 개별 onError가 없고, meta.showGlobalError가 true인 경우만
-    //     if (query.meta?.showGlobalError && error instanceof ApiError) {
-    //       console.error('[Global Query Error]', error.toStandardError())
-    //       // 여기서 전역 toast 표시 가능
-    //       // toast.error(error.msg)
-    //     }
-    //   },
-    // }),
-    // mutationCache: new MutationCache({
-    //   onError: (error, _variables, _context, mutation) => {
-    //     // 개별 onError가 없고, meta.showGlobalError가 true인 경우만
-    //     if (mutation.meta?.showGlobalError && error instanceof ApiError) {
-    //       console.error('[Global Mutation Error]', error.toStandardError())
-    //       // 여기서 전역 toast 표시 가능
-    //       // toast.error(error.msg)
-    //     }
-    //   },
-    // }),
   });
 }
 

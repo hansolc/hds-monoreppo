@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import useLogin from "../hooks/useLogin";
 import { LoginFormType, loginSchema } from "@/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { AppError } from "@/types/error";
 
 const LoginForm = () => {
   const { mutateAsync: login } = useLogin();
@@ -25,7 +26,9 @@ const LoginForm = () => {
   const onSubmit = async (values: LoginFormType) => {
     await login(values, {
       onError: (error) => {
-        setError("root", { message: error.message });
+        if (error instanceof AppError && error.isExpected) {
+          setError("root", { message: error.message });
+        }
       },
     });
   };
